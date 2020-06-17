@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous">
+    </script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/home.css">
+    <script src="home.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body id="theBody" onload="loadTopInfo()">
+    <div id="main-container">
+        <input type="text" hidden value="USERID">
+        <div id="sidebar">
+            <div class="toggle-btn" onclick="toggleSidebar()">
+                <div id="bar1"></div>
+                <div id="bar2"></div>
+                <div id="bar3"></div>
+            </div>
+            <label class="switch">
+                <input type="checkbox" checked onclick="toggleThemes()">
+                <span class="slider round"></span>
+            </label>
+            <label>Dark</label>
+            <a href="/auth/login">Log in</a>
+            <!-- <ul>
+                <li><div id="img"></div></li>
+                <li id="name">Michael Knight</li>
+                <li id="email">exampleemail@me.com</li>
+                <a href="https://www.amazon.com" class="list-items">
+                    <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 35px; color: black;"></i>Reviews
+                </a>
+                <a href="#" class="list-items">
+                    <i class="fas fa-heart" style="margin-right: 35px;"></i>Favorite Movies
+                </a>
+                <a href="#" class="list-items">
+                    <i class="glyphicon glyphicon-user" style="margin-right: 35px;"></i>Personal Info
+                </a>
+                <a href="#" class="list-items">
+                    <i class="fa fa-gear" style="margin-right: 35px;"></i>Preferences
+                </a>
+                <li id="logout"><a href="#">Sign out</a></li>
+            </ul> -->
+        </div>
+        <div id="main-crap" onclick="bodyClick()">
+            <div class="container">
+                <div class="">
+                    <h3 class="text-center">Search For Any Movie</h3>
+                    <% for (tvShow of TvShows) { %>
+                        <input type="text" class="top-tv-shows" hidden style="color: white" value="<%= tvShow %>">
+                    <% } %>
+                    <%   for (movie of Movies) { %>
+                        <input type="text" class="top-movies-all" hidden style="color: white" value="<%= movie %>">
+                    <% } %>
+                    <form id="searchForm">
+                        <input type="text" class="form-control" oninput="getMovies(this.value)" id="searchText" placeholder="Search Movies...">
+                    </form>
+                    <div id="top-shows-header">Top Rated TV Shows</div>
+                    <div id="top-shows-container">
+                        <div id="slideLeft" class="sliders" onclick="moveRight('top-shows')"><</div>
+                            <div id="top-shows"></div>
+                        <div id="slideRight" class="sliders" onclick="moveLeft('top-shows')">></div>
+                    </div>
+
+                    <div id="top-movies-header">Top Rated Movies</div>
+                    <div id="top-movies-container">
+                        <div id="slideLeftMovie" class="sliders" onclick="moveRight('top-movies')"><</div>
+                            <div id="top-movies"></div>
+                        <div id="slideRightMovie" class="sliders" onclick="moveLeft('top-movies')">></div>
+                    </div>
+
+                </div>
+            </div>
+        
+            <div id="container">
+                <div id="movies" class="row"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+          
+function toggleThemes() {
+  document.getElementById("sidebar").classList.toggle("light-theme");
+  document.getElementById("theBody").classList.toggle("light-theme");
+}
+    </script>
+</body>
+</html>

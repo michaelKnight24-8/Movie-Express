@@ -1,0 +1,717 @@
+body { background: black; font-family: Arial, Helvetica, sans-serif; }
+
+fieldset { padding: 0; height: 38px;}
+
+legend { padding-left: 10px; }
+
+#loginGroup, #signupGroup, #forgotGroup {
+    position: relative;
+}
+
+/* For the email input fields  */
+#email {
+    padding: 10px;
+    outline: none;
+    width: 250px;
+    margin-left: -5px;
+}
+  
+#label-email {
+    padding: 0 5px;
+    position: absolute;
+    top: 10px;
+    left: 105px;
+    background-color: rgb(43, 41, 41);
+    color: #999;
+    transition: .3s;
+}
+
+#email:focus {
+    border-color: blue;
+}
+
+#email:focus + #label-email {  
+    color: white;
+}
+
+#email:focus + #label-email, #email.not-empty + #label-email {
+    top: -3px;
+    left: 105px;
+    font-size: 10px;
+}
+
+/* For the password input field */
+#password {
+    padding: 10px;
+    outline: none;
+}
+  
+#label-password {
+    padding: 0 5px;
+    position: absolute;
+    top: 60px;
+    left: 90px;
+    margin-left: 15px;
+    background-color: rgb(43, 41, 41);
+    color: #999;
+    transition: .2s;
+}
+
+#password:focus {
+    border-color: blue;
+}
+
+#password:focus + #label-password {  
+    color: white;
+}
+
+#password:focus + #label-password, #password.not-empty + #label-password {
+    top: 50px;
+    left: 90px;
+    font-size: 10px;
+}
+
+#passwordS {
+    outline: none;
+}
+  
+#label-passwordS {
+    padding: 0 5px;
+    position: absolute;
+    top: 150px;
+    left: 0px;
+    margin-left: 15px;
+    background-color: rgb(43, 41, 41);
+    color: #999;
+    transition: .2s;
+}
+
+#passwordS:focus {
+    border-color: blue;
+}
+
+#passwordS:focus + #label-passwordS {  
+    color: white;
+}
+
+#passwordS:focus + #label-passwordS, #passwordS.not-empty + #label-passwordS {
+    top: 135px;
+    left: 0px;
+    font-size: 10px;
+}
+
+
+#confirm-password {
+    outline: none;
+}
+  
+#label-confirm {
+    padding: 0 5px;
+    position: absolute;
+    top: 150px;
+    left: 238px;
+    margin-left: 15px;
+    background-color: rgb(43, 41, 41);
+    color: #999;
+    transition: .2s;
+}
+
+#confirm-password:focus {
+    border-color: blue;
+}
+
+#confirm-password:focus + #label-confirm {  
+    color: white;
+}
+
+#confirm-password:focus + #label-confirm, #confirm-password.not-empty + #label-confirm {
+    top: 135px;
+    left: 238px;
+    font-size: 10px;
+}
+
+
+/* for names */
+
+#fName {
+    outline: none;
+}
+  
+#label-first {
+    padding: 0 5px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin-left: 15px;
+    background-color: rgb(43, 41, 41);
+    color: #999;
+    transition: .2s;
+}
+
+#fName:focus {
+    border-color: blue;
+}
+
+#fName:focus + #label-first {  
+    color: white;
+}
+
+#fName:focus + #label-first, #fName.not-empty + #label-first {
+    top: -10px;
+    left: 0px;
+    font-size: 10px;
+}
+
+
+#lName {
+    outline: none;
+}
+  
+#label-last {
+    padding: 0 5px;
+    position: absolute;
+    top: 0px;
+    left: 238px;
+    margin-left: 15px;
+    background-color: rgb(43, 41, 41);
+    color: #999;
+    transition: .2s;
+}
+
+#lName:focus {
+    border-color: blue;
+}
+
+#lName:focus + #label-last {  
+    color: white;
+}
+
+#lName:focus + #label-last, #lName.not-empty + #label-last {
+    top: -10px;
+    left: 238px;
+    font-size: 10px;
+}
+
+/* For email */
+#emailS {
+    outline: none;
+}
+  
+#label-emailS {
+    padding: 0 5px;
+    position: absolute;
+    top: 85px;
+    left: 0px;
+    margin-left: 15px;
+    background-color: rgb(43, 41, 41);
+    color: #999;
+    transition: .2s;
+}
+
+#emailS:focus {
+    border-color: blue;
+}
+
+#emailS:focus + #label-emailS {  
+    color: white;
+}
+
+#emailS:focus + #label-emailS, #emailS.not-empty + #label-emailS {
+    top: 75px;
+    left: 0px;
+    font-size: 10px;
+}
+
+
+#btn { 
+    width: 350px;
+    border-radius: 9px;
+    height: 30px;
+    border: 1px solid turquoise;
+    margin-left: 18%;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    color: white;
+    transition: 0.6s;
+    cursor: pointer;
+}
+
+#signUpContainer { color: white; display: block; margin-right: 400px; width: 300px; }
+
+a { color: turquoise; text-decoration: none; }
+
+#btn:hover { background: rgba(9, 207, 221, 0.3); border: 1px solid white; }
+
+
+input {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 300px;
+    color: turquoise;
+}
+
+#signin { 
+    border-bottom: 3px solid turquoise; 
+    margin-top: 25px;
+    width: 150px; 
+    margin-left: 17%;
+}
+
+h1 { color: white; margin-bottom: 4px; }
+
+#email-holder, #password-holder {
+    border-bottom: 1px solid white;
+    margin-bottom: 15px;
+    width: 350px;
+    margin-left: 18%;
+}
+
+#email-holder {
+    margin-top: 50px;
+}
+
+.links { margin-top: 50px; margin-left: 67.5%; font-size: 15px; }
+
+#theForm {
+    background-color: rgb(43, 41, 41);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "img data";
+    height: 400px;
+    width: 75%;
+    border: 1px solid turquoise;
+    border-radius: 5px;
+    margin-top: 100px;
+    margin-left: 12.5%;
+    transition: 1s;
+}
+
+#form-data { grid-area: data; border-radius: 5px; height: 97%; }
+
+#img {
+    grid-area: img;
+    border-radius: 5px;
+    background-size: 100% 100%;
+    height: 100%;
+    width: 100%;
+    background-image: url('http://drive.google.com/uc?export=view&id=1DnvWkco-Oju_D7yvl4pubejUc13oEdR3');
+}
+
+h2 { color: white; margin-bottom: 80px; margin-left: 50px; margin-top: 50px; }
+
+#emailS { 
+    border-bottom: 1px solid turquoise;
+    margin-bottom: 30px;
+    width: 90%;
+}
+
+#names {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "f l";
+    margin-bottom: 30px;
+}
+
+#fName { grid-area: f; }
+
+.input-fields {
+    margin-top: 5px;
+    border-bottom: 1px solid turquoise;
+    padding-bottom: 5px;
+    width: 80%;
+    margin-left: 20px;
+}
+
+#lName { grid-area: l; }
+
+#passwords {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: "p c";
+}
+
+#passwordS { grid-area: p; margin-top: 10px; }
+
+#confirm-password { grid-area: c; margin-top: 10px; }
+
+
+#signin-link { 
+    margin-left: 13.5%; 
+    color: turquoise; 
+    visibility: hidden;
+    transition: 0.6s;
+    display: block;
+    margin-top: 35px;
+}
+
+#signupBtn { 
+    background-color: none;
+    grid-area: btn;
+    border-radius: 5px;
+    border: 1px solid turquoise; 
+    width: 80px;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    transition: 1s;
+    height: 20px;
+    margin-left: 35px;
+    margin-top: 140px;
+    padding-left: 19px;
+}
+
+#signupBtn:hover { background-color: rgba(9, 207, 221, 0.3); border: 1px solid white; }
+
+
+.goaway { opacity: 0; visibility: hidden; }
+
+.showMe { opacity: 1!important; visibility: visible!important; }
+
+#goaway { color: white; }
+
+span { color: turquoise; cursor: pointer; }
+
+#myForm {
+    background-color: rgb(43, 41, 41);
+    display: grid;
+    position: absolute;
+    visibility: hidden;
+    top:20px; left:20px;
+    opacity: 0;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "fm sec";
+    width: 75%;
+    margin-left: 12.5%;
+    height: 550px;
+    margin-top: 20px;
+    border: 1px solid white;
+    border-radius: 5px;
+    transition: 0.7s;
+    margin-bottom: 50px;
+}
+
+#sign-up-form {
+    grid-area: fm;
+}
+
+#sign-up-btns { 
+    display: grid;
+    grid-template-columns: 1fr 0.5fr;
+    grid-template-areas: "robot btn";
+}
+
+#robot {
+    grid-area: robot;
+    margin-left: 20px;
+}
+
+#sec-img { 
+    grid-area: sec; 
+    background-image: url("http://drive.google.com/uc?export=view&id=1AlFrZRu6JcTtrNYrLZkgEdjQED0uG9-Z");
+    background-size: 100% 100%;
+}
+
+#forgot { margin-left: 18%; cursor: pointer; color: turquoise; width: 200px; }
+
+#outer { overflow: hidden; position: absolute; } 
+
+h4 { margin-top: 500px; margin-left: 100px; }
+
+.showForgot { visibility: visible!important; opacity: 1!important; }
+
+#modal {
+    position: relative;
+    background-color: rgb(43, 41, 41);
+    width: 35%; height: 45%;
+    margin-bottom: 25%;
+    border-radius: 15px;
+    border: 1px solid turquoise;
+    font-family: Perpetua,Baskerville,Big Caslon,Palatino Linotype,Palatino,URW Palladio L,Nimbus Roman No9 L,serif; 
+}
+  
+#modal-bg {
+    position: fixed;
+    width: 100%; height: 150vh;
+    top: 0; left: 0;
+    background-color: rgba(0,0,0,0.5);
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.9s;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+#modal-close {
+    position: absolute;
+    right: 10px; top: -50px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#validateBtn {
+    background-color: none;
+    color: white;
+    text-decoration: none;
+    padding: 2px 5px;
+    margin-top: 5%;
+    display: block;
+    border-radius: 10px; 
+    font-size: 15px;
+    margin-left: 30px;
+    height: 30px; width: 100px;
+    cursor: pointer;
+    border: 2px solid turquoise;
+    transition: 0.9s;
+}
+
+#validateBtn:hover { background: rgba(9, 207, 221, 0.3); }
+
+#robot-input {
+    background-color: white;
+    border: 1px solid turquoise;
+    width: 100px;
+    margin-top: 15px;
+    border-radius: 5px;
+    color: black;
+}
+
+#robot-text {
+    border-radius: 5px;
+    width: 200px;
+    height: 40px;
+    background: white;
+    border: 1px solid turquoise;
+    font-size: 40px;
+    padding-left: 40px;
+    vertical-align: middle;
+}
+
+#robot-text div {
+    color: black;
+}
+
+#robot-text-holder {
+    display: flex;
+    margin-top: 20px;
+}
+
+#reset-text { 
+    background: white;
+    padding-left: 5px;
+    padding-top: 5px;    
+    border-radius: 5px;
+    height: 20px; width: 20px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+h5 { color: transparent; }
+
+#t1 {
+    animation: MoveUpDown1 3s linear infinite;
+    position: absolute;
+    left: 30px;
+    bottom: 0;
+    color: white;
+  }
+  
+  @keyframes MoveUpDown1 {
+    0%, 100% {
+      bottom: 70px;
+    }
+    50% {
+      bottom: 50px;
+    }
+  }
+
+#t2 {
+    animation: MoveUpDown2 3s linear infinite;
+    position: absolute;
+    left: 60px;
+    bottom: 0x;
+    color: white;
+  }
+  
+  @keyframes MoveUpDown2 {
+    0%, 100% {
+      bottom: 60px;
+    }
+    50% {
+      bottom: 50px;
+    }
+  }
+
+  #t3 {
+    animation: MoveUpDown3 3s linear infinite;
+    position: absolute;
+    left: 90px;
+    bottom: 10px;
+    color: white;
+  }
+  
+  @keyframes MoveUpDown3 {
+    0%, 100% {
+      bottom: 65px;
+    }
+    50% {
+      bottom: 50px;
+    }
+  }
+
+  #t4 {
+    animation: MoveUpDown4 3s linear infinite;
+    position: absolute;
+    left: 120px;
+    bottom: 10px;
+    color: white;
+  }
+  
+  @keyframes MoveUpDown4 {
+    0%, 100% {
+      bottom: 55px;
+    }
+    50% {
+      bottom: 50px;
+    }
+  }
+
+  #t5 {
+    animation: MoveUpDown5 3s linear infinite;
+    position: absolute;
+    left: 150px;
+    bottom: 10px;
+    color: white;
+  }
+  
+  @keyframes MoveUpDown5 {
+    0%, 100% {
+      bottom: 59px;
+    }
+    50% {
+      bottom: 50px;
+    }
+  }
+
+  #t6 {
+    animation: MoveUpDown6 3s linear infinite;
+    position: absolute;
+    left: 180px;
+    bottom: 10px;
+    color: white;
+  }
+  
+  @keyframes MoveUpDown6 {
+    0%, 100% {
+      bottom: 68px;
+    }
+    50% {
+      bottom: 50px;
+    }
+  }
+
+  #snackbar {
+    visibility: hidden; 
+    padding: 10px;
+    min-width: 250px; 
+    margin-left: -125px; 
+    color: #fff; 
+    font-size: 20px;
+    text-align: center; 
+    border-radius: 2px; 
+    position: fixed; 
+    z-index: 1; 
+    left: 50%; 
+    bottom: 30px;
+    border-radius: 8px; 
+}
+
+#snackbar.show {
+    visibility: visible; 
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+from {bottom: 0; opacity: 0;}
+to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+from {bottom: 0; opacity: 0;}
+to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+from {bottom: 30px; opacity: 1;}
+to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+from {bottom: 30px; opacity: 1;}
+to {bottom: 0; opacity: 0;}
+}
+
+#emailForgot {
+    width: 200px;
+    position: relative;
+    left: 35px;
+    top: -29px;
+}
+
+#emailForgot {
+    outline: none;
+    width: 250px;
+    margin-left: -5px;
+}
+  
+#label-forgot {
+    padding: 0 5px;
+    position: absolute;
+    top: 195px;
+    left: 25px;
+    background-color: rgb(43, 41, 41);
+    color: #999;
+    transition: .3s;
+    font-size: 23px;
+}
+
+#emailForgot:focus {
+    border-color: blue;
+}
+
+#emailForgot:focus + #label-forgot {  
+    color: white;
+}
+
+#emailForgot:focus + #label-forgot, #emailForgot.not-empty + #label-forgot {
+    top: 180px;
+    left: 25px;
+    font-size: 15px;
+}
+
+#logo { 
+    margin-top: 60px; 
+    margin-left: 30%;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: 150px;
+    padding-left: 15px;
+    color: white;
+    font-size: 25px;
+}
+
+#logo + div {
+    font-size: 35px;
+    color: turquoise;
+    margin-left: 24%;
+}
+
+#logo + div + h2 {
+    font-size: 20px;
+    margin-left: 30px;
+}
+

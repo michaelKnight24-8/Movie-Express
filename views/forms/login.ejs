@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>     
+    <div id="theForm">
+        <div id="img"></div>
+        <div id="form-data">
+            <form action="" method="POST">
+                <div id="signin">
+                    <h1>Sign in</h1>
+                </div>
+                <div id="loginGroup">
+                    <div id="email-holder"> 
+                        <i class="fa fa-envelope" style="color: turquoise;"></i>
+                        <input id="email" type="email"> 
+                        <div id="label-email">Email</div>
+                    </div>
+                    <div id="password-holder">
+                        <i class="fa fa-lock" style="font-size: 23px; color: turquoise;"></i>
+                        <input id="password" type="password">
+                        <div id="label-password">Password</div>
+                    </div>
+                </div>
+                <input id="btn" type="submit" value="SIGN IN">
+                <div href="" id="forgot">Forgot your password?</div>
+            </form>
+        </div>
+    </div>
+    <div id="signUpContainer" class="links">
+        Don't have an account? <span onclick="goAway()">Register here</span>
+    </div>
+    
+    <div id="myForm">
+        <div id="sec-img" class="b">
+            <h4>Your security is our number one concern</h4>
+        </div>
+        <form id="sign-up-form"class="b">
+            <h2>Create your Movie Express account</h2>
+            <div id="signupGroup">
+                <div id="names"class="b">
+                    <input type="text" id="fName" class="input-fields" onfocusout="">
+                    <div id="label-first">First Name</div>
+                    <input type="text" id="lName" class="input-fields" onfocusout="">
+                    <div id="label-last">Last Name</div>
+                </div>
+                <input id="emailS" type="email" onfocusout="" class="input-fields"> 
+                <div id="label-emailS">Email</div>         
+                <div id="passwords">
+                    <input type="password" id="passwordS" class="input-fields" onfocusout="">
+                    <div id="label-passwordS">Password</div>
+                    <input type="password" id="confirm-password" class="input-fields" onfocusout="">
+                    <div id="label-confirm">Confirm</div>
+                </div>
+                <div id="moving" style="display: flex;">
+                </div>
+                <div id="snackbar"></div>
+                <div id="sign-up-btns" class="b">
+                    <div id="robot">
+                        <h5>Secret text! Now I know you aren't a robot! muwahaha</h5>
+                        <div id="robot-text-holder">
+                            <div id="robot-text">
+                                <div id="t1"></div><div id="t2"></div>
+                                <div id="t3"></div><div id="t4"></div>
+                                <div id="t5"></div><div id="t6"></div>
+                            </div>
+                            <i id="reset-text" onclick="getRandomString()" class="fa fa-refresh"></i>
+                        </div>
+                        <input type="text" id="robot-input" required placeholder="Type the text...">                        
+                    </div>
+                    <div id="signupBtn" onclick="validateRobot()">Sign Up</div>
+                </div>
+            </div>
+           
+        </form>
+    </div>
+    <a href="" id="signin-link">Sign in instead</a>
+    <div id="modal-bg">
+        <div id="modal">
+            <div id="forgotGroup">
+                <div id="logo">Movie Express</div>
+                <div>Account Recovery</div>
+                <h2>Enter the email associated with your account</h2>
+                <input id="emailForgot" type="email" onfocusout="" class="input-fields"> 
+                <div id="label-forgot">Email</div>  
+                <input type="submit" id="validateBtn" value="SEND" name="VALIDATE">
+                <span id="modal-close">X</span>
+            </div>
+        </div>
+    </div>
+    <script>
+        var modalBgSign = document.getElementById('modal-bg');
+        var modalCloseSign = document.getElementById('modal-close');
+        var forgot = document.getElementById('forgot');
+
+        forgot.addEventListener('click', function() {
+            modalBgSign.classList.toggle("showForgot");
+        });
+
+        modalCloseSign.addEventListener('click', function() {
+            modalBgSign.classList.toggle("showForgot");
+        }); 
+    </script>
+    <script src="/login.js"></script>
+</body>
+</html>

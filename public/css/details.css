@@ -1,0 +1,117 @@
+body { background-color: black; font-family: Arial, Helvetica, sans-serif; }
+
+.main-container {
+    display: grid;
+    grid-template-columns: 0.5fr 1.5fr;
+    grid-template-areas: "img details";
+    height: 550px;
+}
+
+.movie-details h2 { font-size: 30px; }
+
+.movieImg { grid-area: img; margin-top: 100px; margin-left: 20px; }
+
+.container { background-color: rgb(43, 41, 41); width: 90%; margin-left: 5%; height: 850px; }
+
+hr { border: 1px solid rgba(31, 29, 29, 0.897); }
+
+#movie-details-list { background-color: rgb(61, 61, 60); border-radius: 15px;}
+
+.movie-details {
+    color: white;
+    height: 100%;
+    grid-area: details;
+    margin-left: 50px;
+    margin-right: 30px;
+}
+
+.labels { color: gray; }
+
+.movie-info { 
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+
+#back { 
+    margin-left: 20px;
+    text-decoration: none;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    background: gray;
+    padding: 5px;
+    margin-bottom: 30px;
+}
+
+#plot { 
+    color: white; 
+    width: 95%;
+    margin-left: 20px;
+    margin-top: 100px;
+    border: 2px solid rgba(31, 29, 29, 0.897);
+    padding-left: 5px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    margin-bottom: 50px;
+}
+
+#top { border-top-left-radius: 5px; border-top-right-radius: 5px; padding-top: 10px; }
+
+#bottom { border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; padding-bottom: 10px; }
+
+h2 { margin-top: 100px; margin-bottom: 50px; color: white; }
+
+i { color: turquoise; cursor: pointer; }
+
+#snackbar {
+    visibility: hidden; 
+    padding: 10px;
+    min-width: 250px; 
+    margin-left: -125px; 
+    color: #fff; 
+    font-size: 20px;
+    text-align: center; 
+    border-radius: 2px; 
+    position: fixed; 
+    z-index: 1; 
+    left: 50%; 
+    bottom: 30px;
+    border-radius: 8px; 
+}
+
+#snackbar.show {
+    visibility: visible; 
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+from {bottom: 0; opacity: 0;}
+to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+from {bottom: 0; opacity: 0;}
+to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+from {bottom: 30px; opacity: 1;}
+to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+from {bottom: 30px; opacity: 1;}
+to {bottom: 0; opacity: 0;}
+}
+
+#hover-content {
+    display: inline;
+    opacity: 0;
+    transition: 0.5s;
+}
+#heart:hover #hover-content {
+    display: inline;
+    opacity: 1;
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+    <script src="home.js"></script>
+    <script>
+        function getMovie(){
+    let movieId = document.getElementById("movieId").value;
+    console.log(movieId);
+    axios.get('https://www.omdbapi.com/?i='+movieId+'&apikey=b85b1f97&')
+      .then((response) => {
+        console.log(response);
+        let movie = response.data;
+  
+        let output =`
+          <div class="main-container">
+            <div class="movieImg">
+              <img src="${movie.Poster}" id="img">
+            </div>
+            <div class="movie-details">
+              <h2>${movie.Title}</h2>
+              <div id="movie-details-list">
+                <div class="movie-info" id="top"><strong class="labels">Genre:</strong> ${movie.Genre}</div>
+                <div class="movie-info"><strong class="labels">Released:</strong> ${movie.Released}</div>
+                <div class="movie-info"><strong class="labels">Rated:</strong> ${movie.Rated}</div>
+                <div class="movie-info"><strong class="labels">IMDB Rating:</strong> ${movie.imdbRating}</div>
+                <div class="movie-info"><strong class="labels">Director:</strong> ${movie.Director}</div>
+                <div class="movie-info"><strong class="labels">Writer:</strong> ${movie.Writer}</div>
+                <div class="movie-info" id="bottom"><strong class="labels">Actors:</strong> ${movie.Actors}</div>
+               </div> 
+               <i id="heart" class="fa fa-heart-o" onclick="makeFavorite()">
+                 <div id="hover-content">Add to Favorites
+                 </div>
+               </i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="well">
+              <div id="plot">
+                <h3>Plot</h3>
+                ${movie.Plot}
+              </div>
+              <a href="/" id="back">Go Back To Search</a>      
+            </div>
+        </div>
+        `;
+  
+        $('#movie').html(output);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+    </script>
+</head>
+<body onload="getMovie()">
+    <div class="container">
+        <div id="movie" class="well"></div>
+    </div>
+    <div id="snackbar"></div>
+    <input type="text" hidden id="movieId" value="<%= movieId %>">
+</body>
+<script>
+  function deleteToast() {
+    var isFavorite = document.getElementById("heart").classList.contains("fa-heart-o");
+
+    var toast = document.getElementById("snackbar");
+
+    // Add the "show" class to DIV
+    toast.className = "show";
+    toast.innerHTML = (isFavorite ? "Removed from favorites" : "Added to favorites");
+    toast.style["backgroundColor"] = "turquoise";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+}
+  function makeFavorite() {
+    var heart = document.getElementById("heart");
+    if (heart.classList.contains("fa-heart-o")) {
+      heart.classList.remove("fa-heart-o");
+      heart.classList.add("fa-heart");
+      document.getElementById("hover-content").innerHTML = "Remove from favorites"
+    } else {
+      heart.classList.remove("fa-heart");
+      heart.classList.add("fa-heart-o");
+      document.getElementById("hover-content").innerHTML = "Add to favorites"
+    }
+    deleteToast();
+  }
+</script>
+<link rel="stylesheet" href="/css/details.css">
+</html>
