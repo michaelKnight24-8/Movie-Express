@@ -69,7 +69,7 @@ app.use(express.static(path.join(__dirname, 'public')))
                 }
             });
         })
-       });
+    });
 mongoose
     .connect( 
     'mongodb+srv://mknight24:Lak3rs24@cluster0-20afh.mongodb.net/imdb?retryWrites=true&w=majority'

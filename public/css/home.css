@@ -54,11 +54,11 @@ body { background-color: rgb(61, 61, 60) }
 #preferences {
     position: fixed;
     background-color: gray;  
-    width: 300px;
-    height: 400px;
+    width: 600px;
+    height: 500px;
     visibility: hidden;
     left: 200px;
-    top: 157px;
+    top: 80px;
     border-top: 1px solid turquoise;
     border-right: 1px solid turquoise;
     border-bottom: 1px solid turquoise;
@@ -417,4 +417,75 @@ a { color: black; text-decoration: none; }
     font-size: 10px;
     margin-top: 5px;
     color: gray;
+}
+
+#avatars {
+    width: 90%;
+    margin-left: 4%;
+    height: 300px;
+    border: 1px solid black;
+    background-size: 100% 100%;
+    background-color: white;
+    background-image: url('http://drive.google.com/uc?export=view&id=1ULdi1j52lZqkZQ6EtFTiH2rfw4XJZme8');
+}
+
+#color-scheme {
+    margin-top: 50px;
+}
+
+.pref-headers {
+    font-size: large;
+    color: white;
+    padding-left: 10px;
+}
+
+#colors-holder { 
+    margin-top: 10px;
+    margin-left: 25px;
+    display: flex; 
+    width: 210px; 
+    border: 1px solid black; 
+
+}
+
+.color-options {
+    width: 70px; height: 20px;
+    border-right: 1px solid black;
+    padding-left: 15px;
+    cursor: pointer;
+}
+
+.active {
+    background-color: #333;
+    color: white;
+}
+
+.avatar-rows {
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.current-avatar {
+    border-radius: 60%;
+    background-color: rgba(230, 223, 223, 0.5);
+}
+
+.avatar-rows div {
+    width: 12.5%;
+    border-radius: 60%;
+}
+
+.avatar-rows div:hover {
+    background-color: rgba(230, 223, 223, 0.5);
+}
+
+#chg-avatar {
+    margin-top: 15px;
+}
+
+#preferences button {
+    margin-top: 10px;
+    margin-left: 84%;
 }

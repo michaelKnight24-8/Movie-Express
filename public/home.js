@@ -2,20 +2,42 @@ function bodyClick(){
     if($("#sidebar").hasClass('change')){
         toggleSidebar();
     }
-    if($("#preferences").hasClass('change')) {
-      document.getElementById("preferences").classList.toggle('change');
-    }
+    closeAllMenus()
 }
+
+function closeAllMenus() {
+   //container ids
+   var containerIds = ["reviews-container", "favorite-movies-container",
+   "info-container", "prefs-container"]
+
+  //iterate over them and disable the highlight if it is there
+  for (container of containerIds) {
+    if ($("#" + container).hasClass('current')) {
+      document.getElementById(container).classList.toggle('current');
+    }
+  }
+
+  //now do the same for the pullout menus
+  var slideOutIds = ["preferences", "personal-info", "reviews", "your-favorites"];
+
+  for (slide of slideOutIds) {
+    if ($("#" + slide).hasClass('change')) {
+      document.getElementById(slide).classList.toggle('change');
+    }
+  }
+}
+
 function toggleSidebar() {
   document.getElementById("container").style["visibility"] = "hidden";
   document.getElementById('sidebar').classList.toggle('change');
   document.getElementById('main-crap').classList.toggle('blur');
   if (document.getElementById('bar1').style.backgroundColor == 'white') {
-      document.getElementById('bar1').style.backgroundColor = 'black';
-      document.getElementById('bar3').style.backgroundColor = 'black';
+    closeAllMenus();
+    document.getElementById('bar1').style.backgroundColor = 'black';
+    document.getElementById('bar3').style.backgroundColor = 'black';
   } else {
-      document.getElementById('bar1').style.backgroundColor = 'white';
-      document.getElementById('bar3').style.backgroundColor = 'white';
+    document.getElementById('bar1').style.backgroundColor = 'white';
+    document.getElementById('bar3').style.backgroundColor = 'white';
   }
 }
 
@@ -131,3 +153,52 @@ function moveLeft(context) {
 function moveRight(context) {
   document.getElementById(context).scrollLeft -= 50;
 };
+
+function toggleThemes() {
+  document.getElementById("sidebar").classList.toggle("light-theme");
+  document.getElementById("theBody").classList.toggle("light-theme");
+}
+
+//function to iterate over all the available containers and slideout menus to open, and shut
+//ones as needed
+function showHidden(context, context2) {
+    //holds the container ids
+    var containerIds = ["reviews-container", "favorite-movies-container",
+                        "info-container", "prefs-container"]
+                        
+    //holds slideout ids
+    var slideOutIds = ["preferences", "personal-info", "reviews", "your-favorites"]
+
+    //iterate over conatiners and ids and shut them if needed so there is no overlap
+    for (container of containerIds) {
+        if (context != container) {
+            if ($("#" + container).hasClass('current')) {
+                document.getElementById(container).classList.toggle('current');
+            }
+        }
+    }
+
+    //now for slideOut stuff
+    for (slide of slideOutIds) {
+        if (context != slide) {
+            if ($("#" + slide).hasClass('change')) {
+                document.getElementById(slide).classList.toggle('change');
+            }
+        }
+    }
+
+    document.getElementById(context).classList.toggle("change");
+    document.getElementById(context2).classList.toggle("current");
+}
+
+function setActive(context) {
+  var colorArray = ["dark-col", "white-col", "blue-col"];
+  for (color of colorArray) {
+      if (context != color) {
+          if ($("#" + color).hasClass('active')) {
+              document.getElementById(color).classList.toggle('active');
+          }
+      }
+  }
+  document.getElementById(context).classList.toggle('active');
+}
