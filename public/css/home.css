@@ -6,11 +6,11 @@
 body { background-color: rgb(61, 61, 60) }
 
 .show-container { 
-    height: 68px; 
+    height: 90px; 
     color: white;
     display: flex; 
     cursor: pointer; 
-    transition: 0.9s;
+    transition: background-color 0.9s; 
 }
 
 .actual-data {
@@ -21,13 +21,13 @@ body { background-color: rgb(61, 61, 60) }
 .show-container:hover { background-color: #315; }
 
 .search-data {
-    height: 70px;
+    height: 90px;
     width: 95%;
     margin-left: 3%;
     border: 1px solid gray;
 }
 
-.show-image { margin-right: 30px; margin-left: 20px; width: 45px; height: 68px; }
+.show-image { margin-right: 30px; margin-left: 10px; width: 45px; height: 68px; margin-top: 10px; }
 
 #searchText { width: 50%; margin-left: 25%; }
 
@@ -51,6 +51,76 @@ body { background-color: rgb(61, 61, 60) }
     transform: rotate(45deg) translate(-7px, -7px);
 }
 
+#preferences {
+    position: fixed;
+    background-color: gray;  
+    width: 300px;
+    height: 400px;
+    visibility: hidden;
+    left: 200px;
+    top: 157px;
+    border-top: 1px solid turquoise;
+    border-right: 1px solid turquoise;
+    border-bottom: 1px solid turquoise;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: 2px 2px 2px turquoise;
+}
+
+#reviews {
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    position: fixed;
+    border-top: 1px solid turquoise;
+    border-right: 1px solid turquoise;
+    border-bottom: 1px solid turquoise;
+    visibility: hidden;
+    left: 200px;
+    top: 70px;
+    width: 400px;
+    height: 340px;
+    background-color: gray;
+    box-shadow: 2px 2px 2px turquoise;
+}
+
+#reviews.change { visibility: visible; }
+
+#your-favorites.change { visibility: visible; }
+
+#your-favorites {
+    box-shadow: 2px 2px 2px turquoise;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    position: fixed;
+    border-top: 1px solid turquoise;
+    border-right: 1px solid turquoise;
+    border-bottom: 1px solid turquoise;
+    visibility: hidden;
+    background-color: gray;
+    left: 200px;
+    width: 400px;
+    top: 106px;
+    height: 350px;
+}
+
+#personal-info {
+    position: fixed;
+    background-color: gray;  
+    left: 200px;
+    top: 100px;
+    height: 500px;
+    width: 600px;
+    visibility: hidden;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-top: 1px solid turquoise;
+    border-right: 1px solid turquoise;
+    border-bottom: 1px solid turquoise;
+    box-shadow: 2px 2px 2px turquoise;
+}
+
+.current { background-color: #333; }
+
 #sidebar {
     flex: 20%;
     position: fixed;
@@ -69,7 +139,6 @@ body { background-color: rgb(61, 61, 60) }
 }
 
 .list-items:hover {
-    background-color: gray;
     border-left: 4px solid black;
     width: 198;
     text-decoration: none;
@@ -91,6 +160,15 @@ body { background-color: rgb(61, 61, 60) }
 #sidebar.change {
     left: 0px;
 }
+
+#personal-info.change {
+    visibility: visible;
+}
+
+#preferences.change {
+    visibility: visible;
+}
+
 
 #name {
     margin-left: 20%;
@@ -138,11 +216,6 @@ a { color: black; text-decoration: none; }
 }
 
 #headers { margin-left: 50px; margin-top: 50px; }
-
-/* #movies img, #movie img{
-    width:100%;
-} */
-
 
 .light-theme {
     background-color: white!important;
@@ -232,6 +305,28 @@ a { color: black; text-decoration: none; }
     margin-left: 20px;
 }
 
+#container::-webkit-scrollbar {
+    background-color: white;
+    border-radius: 5px;
+    height: 20%;
+    max-height: 30%;
+}
+
+#container::-webkit-scrollbar-track {
+    background-color: white;
+    border-radius: 5px;
+    height: 20%;
+    max-height: 30%;
+}
+
+#container::-webkit-scrollbar-thumb {
+    background-color: turquoise;
+    min-height: 20px;
+    max-height: 30px;
+    height: 20px;
+    border-radius: 50px;
+}
+
 #top-shows::-webkit-scrollbar, #top-movies::-webkit-scrollbar {
     display: none;
 }
@@ -312,6 +407,10 @@ a { color: black; text-decoration: none; }
     width: 45%;
     margin-left: 24.5%;
     border-radius: 5px;
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 500px;
+    visibility: hidden;
 }
 
 .release-year, .release-year + div {

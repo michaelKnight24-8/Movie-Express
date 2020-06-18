@@ -1,22 +1,25 @@
 function bodyClick(){
     if($("#sidebar").hasClass('change')){
         toggleSidebar();
-    }   
+    }
+    if($("#preferences").hasClass('change')) {
+      document.getElementById("preferences").classList.toggle('change');
+    }
 }
 function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('change');
-    document.getElementById('main-crap').classList.toggle('blur');
-    if (document.getElementById('bar1').style.backgroundColor == 'white') {
-        document.getElementById('bar1').style.backgroundColor = 'black';
-        document.getElementById('bar3').style.backgroundColor = 'black';
-    } else {
-        document.getElementById('bar1').style.backgroundColor = 'white';
-        document.getElementById('bar3').style.backgroundColor = 'white';
-    }
+  document.getElementById("container").style["visibility"] = "hidden";
+  document.getElementById('sidebar').classList.toggle('change');
+  document.getElementById('main-crap').classList.toggle('blur');
+  if (document.getElementById('bar1').style.backgroundColor == 'white') {
+      document.getElementById('bar1').style.backgroundColor = 'black';
+      document.getElementById('bar3').style.backgroundColor = 'black';
+  } else {
+      document.getElementById('bar1').style.backgroundColor = 'white';
+      document.getElementById('bar3').style.backgroundColor = 'white';
+  }
 }
 
 $(document).ready(() => {
-  
     $('#searchForm').on('submit', (e) => {
       let searchText = $('#searchText').val();
       getMovies(searchText);
@@ -24,7 +27,11 @@ $(document).ready(() => {
     });
   });
   
-  function getMovies(searchText){
+function getMovies(searchText){
+  if (searchText.length == 0) {
+    document.getElementById("container").style["visibility"] = "hidden";
+  } else {
+    document.getElementById("container").style["visibility"] = "visible";
     axios.get('https://www.omdbapi.com/?i=tt3896198&apikey=b85b1f97&s='+searchText)
       .then((response) => {
         let movies = response.data.Search;
@@ -41,21 +48,19 @@ $(document).ready(() => {
               actors = actorsArray;
             }
 
-            if (index <= 10) {
-              output += `
-                <div class="search-data">
-                  <div class="show-container" onclick="movieSelected('${movieData.imdbID}')">
-                    <img src="${movieData.Poster}" class="show-image">
-                      <div class="actual-data>
-                        <h5 class="show-title">${movieData.Title}</h5>
-                        <div class="release-year">${movieData.Year}</div>
-                        <div>${actors}</div>
-                      </div>
-                  </div>
+            output += `
+              <div class="search-data">
+                <div class="show-container" onclick="movieSelected('${movieData.imdbID}')">
+                  <img src="${movieData.Poster}" class="show-image">
+                    <div class="actual-data>
+                      <h5 class="show-title">${movieData.Title}</h5>
+                      <div class="release-year">${movieData.Year}</div>
+                      <div>${actors}</div>
+                    </div>
                 </div>
-              `;
-              $('#movies').html(output);
-            } 
+              </div>
+            `;
+            $('#movies').html(output);
             
           });
         });
@@ -64,12 +69,13 @@ $(document).ready(() => {
       .catch((err) => {
         console.log(err);
       });
-  }
+    }
+}
   
-  function movieSelected(id){
-    window.location.href = '../movie/details/' + id;
-    return false;
-  }
+function movieSelected(id){
+  window.location.href = '../movie/details/' + id;
+  return false;
+}
 
 function loadTopInfo() {
   var shows = document.getElementsByClassName("top-tv-shows");

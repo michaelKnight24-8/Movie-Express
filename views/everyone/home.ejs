@@ -20,6 +20,19 @@
     <div id="main-container">
         <input type="text" hidden value="USERID">
         <div id="sidebar">
+            <div id="preferences">
+                <button>Click me big boig!!!!</button>
+            </div>
+            <div id="personal-info">
+                <div>Hello man!!!!</div>
+            </div>
+            <div id="reviews">
+                Your reviews
+            </div>
+            <div id="your-favorites">
+                Your favorite movies
+            </div>
+            
             <div class="toggle-btn" onclick="toggleSidebar()">
                 <div id="bar1"></div>
                 <div id="bar2"></div>
@@ -30,25 +43,25 @@
                 <span class="slider round"></span>
             </label>
             <label>Dark</label>
-            <a href="/auth/login">Log in</a>
-            <!-- <ul>
+            <!-- <a href="/auth/login">Log in</a> -->
+            <ul>
                 <li><div id="img"></div></li>
                 <li id="name">Michael Knight</li>
                 <li id="email">exampleemail@me.com</li>
-                <a href="https://www.amazon.com" class="list-items">
+                <a href="#" class="list-items" id="reviews-container" onclick="showHidden('reviews', this.id)">
                     <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 35px; color: black;"></i>Reviews
                 </a>
-                <a href="#" class="list-items">
+                <a href="#" class="list-items" id="favorite-movies-container" onclick="showHidden('your-favorites', this.id)">
                     <i class="fas fa-heart" style="margin-right: 35px;"></i>Favorite Movies
                 </a>
-                <a href="#" class="list-items">
+                <a href="#" class="list-items" id="info-container" onclick="showHidden('personal-info', this.id)">
                     <i class="glyphicon glyphicon-user" style="margin-right: 35px;"></i>Personal Info
                 </a>
-                <a href="#" class="list-items">
+                <a href="#" class="list-items" id="prefs-container" onclick="showHidden('preferences', this.id)">
                     <i class="fa fa-gear" style="margin-right: 35px;"></i>Preferences
                 </a>
                 <li id="logout"><a href="#">Sign out</a></li>
-            </ul> -->
+            </ul>
         </div>
         <div id="main-crap" onclick="bodyClick()">
             <div class="container">
@@ -61,7 +74,7 @@
                         <input type="text" class="top-movies-all" hidden style="color: white" value="<%= movie %>">
                     <% } %>
                     <form id="searchForm">
-                        <input type="text" class="form-control" oninput="getMovies(this.value)" id="searchText" placeholder="Search Movies...">
+                        <input type="text" autocomplete="off" class="form-control" oninput="getMovies(this.value)" id="searchText" placeholder="Search Movies...">
                     </form>
                     <div id="top-shows-header">Top Rated TV Shows</div>
                     <div id="top-shows-container">
@@ -79,7 +92,6 @@
 
                 </div>
             </div>
-        
             <div id="container">
                 <div id="movies" class="row"></div>
             </div>
@@ -91,6 +103,39 @@ function toggleThemes() {
   document.getElementById("sidebar").classList.toggle("light-theme");
   document.getElementById("theBody").classList.toggle("light-theme");
 }
+
+//function to iterate over all the available containers and slideout menus to open, and shut
+//ones as needed
+function showHidden(context, context2) {
+    //holds the container ids
+    var containerIds = ["reviews-container", "favorite-movies-container",
+                        "info-container", "prefs-container"]
+                        
+    //holds slideout ids
+    var slideOutIds = ["preferences", "personal-info", "reviews", "your-favorites"]
+
+    //iterate over conatiners and ids and shut them if needed so there is no overlap
+    for (container of containerIds) {
+        if (context != container) {
+            if ($("#" + container).hasClass('current')) {
+                document.getElementById(container).classList.toggle('current');
+            }
+        }
+    }
+
+    //now for slideOut stuff
+    for (slide of slideOutIds) {
+        if (context != slide) {
+            if ($("#" + slide).hasClass('change')) {
+                document.getElementById(slide).classList.toggle('change');
+            }
+        }
+    }
+
+    document.getElementById(context).classList.toggle("change");
+    document.getElementById(context2).classList.toggle("current");
+}
+
     </script>
 </body>
 </html>
