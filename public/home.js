@@ -1,13 +1,17 @@
+//so I know which one is currently active, so it makes ading and removing
 var currentActiveAvatar = "";
 var currentColorTheme = "";
 //holds the container ids
 var containerIds = ["reviews-container", "favorite-movies-container",
 "info-container", "prefs-container"];
 
+
 //holds slideout ids
 var slideOutIds = ["preferences", "personal-info", "reviews", "your-favorites"];
 
 
+
+//shuts the slide out menu when the clicked outside of the menu
 function bodyClick(){
     if($("#sidebar").hasClass('change')){
         toggleSidebar();
@@ -15,6 +19,8 @@ function bodyClick(){
     closeAllMenus()
 }
 
+
+//closes all the open menus, and submenus when clicked outside of the slideout menu
 function closeAllMenus() {
    //container ids
    var containerIds = ["reviews-container", "favorite-movies-container",
@@ -37,6 +43,7 @@ function closeAllMenus() {
   }
 }
 
+//toggles open/close on the slide out menu on the side
 function toggleSidebar() {
   document.getElementById("container").style["visibility"] = "hidden";
   document.getElementById('sidebar').classList.toggle('change');
@@ -51,6 +58,7 @@ function toggleSidebar() {
   }
 }
 
+//gets the value in the search box, and kicks off the API call
 $(document).ready(() => {
     $('#searchForm').on('submit', (e) => {
       let searchText = $('#searchText').val();
@@ -59,6 +67,13 @@ $(document).ready(() => {
     });
   });
   
+
+//Handle the search implementation. When the user searches for something, it updates it
+//every time the user inputs a letter. The API is actaully called twice here. Once to get the 
+//imdb iD (using their own algorithm) which is then used to call the API again, so I can display to the user
+//the name of the movie, the poster, and waht year it was made in. I also have it show only two
+//actors that are in the movie. When they click in the mimage they can see more. I parse it at the 
+//comma seperating the two names. If there is only one actor listed, then it only shows that one person
 function getMovies(searchText){
   if (searchText.length == 0) {
     document.getElementById("container").style["visibility"] = "hidden";
@@ -104,12 +119,17 @@ function getMovies(searchText){
     }
 }
   
+//calls the corresponding route to load the page showing more details about a certain show
 function movieSelected(id){
   window.location.href = '../movie/details/' + id;
   return false;
 }
 
+//Two api calls are made here. In the beginnig of the route I do the web scrape and 
+//get the top 10 rated movies and shows right now in the world, and stores them in hidden input fields.
+//this then takes those values, uses the API on each one, and displays everything all nicely!
 function loadTopInfo() {
+  document.getElementById("img").style["background-image"] = 'url(../images/a28.png)';
   var shows = document.getElementsByClassName("top-tv-shows");
   var movies = document.getElementsByClassName("top-movies-all");
   
@@ -152,18 +172,27 @@ function loadTopInfo() {
   }
 }
 
+//small route handling
 function goToDetails(movieId) {
   movieSelected(document.getElementById(movieId).value);
 }
 
+//handles moving a div scroll left
 function moveLeft(context) {
   document.getElementById(context).scrollLeft += 50;
 };
 
+//handles moving it right. I know that I could do this with just one function, 
+//and pass in two values, one with the context (which element I am scrolling through)
+//and which direction (be it -50 for th right, or 50 for the left)
 function moveRight(context) {
   document.getElementById(context).scrollLeft -= 50;
 };
 
+
+//a big function with the logic for chanhing the theme. It evaluates which theme is currently active,
+//removes the active class form it, and sets it to the theme clicked on, then calls functions which contain
+//which elements are being changed, and all that jazz
 function toggleThemes(color) {
 
   switch (currentColorTheme) {
@@ -187,6 +216,8 @@ function toggleThemes(color) {
   
 }
 
+
+
 function whiteTheme() {
   for (slide of slideOutIds) 
       document.getElementById(slide).classList.toggle("light-theme");
@@ -202,6 +233,8 @@ function whiteTheme() {
 
     currentColorTheme = "white";
 }
+
+
 
 function blueTheme() {
   for (slide of slideOutIds) 
@@ -219,9 +252,9 @@ function showHidden(context, context2) {
 
     //iterate over conatiners and ids and shut them if needed so there is no overlap
     for (container of containerIds) {
-        if (context != container) {
+        if (context2 != container) {
             if ($("#" + container).hasClass('current')) {
-                document.getElementById(container).classList.toggle('current');
+                document.getElementById(container).classList.toggle("current");
             }
         }
     }
@@ -229,16 +262,17 @@ function showHidden(context, context2) {
     //now for slideOut stuff
     for (slide of slideOutIds) {
         if (context != slide) {
-            if ($("#" + slide).hasClass('change')) {
-                document.getElementById(slide).classList.toggle('change');
+            if ($("#" + slide).hasClass("change")) {
+                document.getElementById(slide).classList.toggle("change");
             }
         }
     }
 
     document.getElementById(context).classList.toggle("change");
-    document.getElementById(context2).classList.toggle('current');
+    document.getElementById(context2).classList.toggle("current");
 }
 
+//the starting function for chanhing the theme the user sees on the website. 
 function setActive(context) {
   var colorArray = ["dark-col", "white-col", "blue-col"];
   for (color of colorArray) {
@@ -253,6 +287,8 @@ function setActive(context) {
   toggleThemes(context.split("-")[0])
 }
 
+
+//changes the avatar based upon what the user selects
 function changeAvatar(avatarId) {
   if (currentActiveAvatar != "") 
     document.getElementById(currentActiveAvatar).classList.toggle('current-avatar');
