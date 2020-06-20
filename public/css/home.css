@@ -5,6 +5,8 @@
 
 body { background-color: rgb(61, 61, 60) }
 
+#search-header { color: turquoise; }
+
 .show-container { 
     height: 90px; 
     color: white;
@@ -191,6 +193,7 @@ body { background-color: rgb(61, 61, 60) }
     border: 1px solid black;
     background-color: white;
     margin-bottom: 50px;
+    background-size: 100% 100%;
 }
 
 #logout {
@@ -216,10 +219,6 @@ a { color: black; text-decoration: none; }
 }
 
 #headers { margin-left: 50px; margin-top: 50px; }
-
-.light-theme {
-    background-color: white!important;
-}
 
 .switch {
     margin-left: 150px;
@@ -303,6 +302,8 @@ a { color: black; text-decoration: none; }
     display: flex;
     overflow-x: scroll;
     margin-left: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 #container::-webkit-scrollbar {
@@ -359,7 +360,7 @@ a { color: black; text-decoration: none; }
 .sliders {
     color: white;
     font-size: 30px;
-    margin-top: 30px;
+    margin-top:30px;
     cursor: pointer;
     height: 40px;
     width: 20px;
@@ -435,7 +436,7 @@ a { color: black; text-decoration: none; }
 
 .pref-headers {
     font-size: large;
-    color: white;
+    color: black;
     padding-left: 10px;
 }
 
@@ -485,7 +486,53 @@ a { color: black; text-decoration: none; }
     margin-top: 15px;
 }
 
+.blue-headers { color: white; }
+
 #preferences button {
     margin-top: 10px;
     margin-left: 84%;
+}
+
+.steel-blue-theme { background-color: steelblue!important; }
+
+.blue-theme {
+    background-color: navy
+}
+
+.light-theme {
+    background-color: white!important;
+    color: turquoise!important;
+}
+
+.scrape-theme { color: turquoise!important; }
+
+.container-theme { 
+    border: 1px solid turquoise!important;
+}
+
+#fav-head { font-size: large; margin-top: 20px; margin-left: 10px; color: red;}
+
+
+#reviews div:first-child { font-size: large; margin-top: 20px; margin-left: 10px; }
+
+#favorites-holder { display: flex; height: 70%; width: 90%; margin-left: 5%; margin-top: 20px; }
+
+#favorites-shower { width: 100%; height: 100%; border: 1px solid black; }
+
+.fav-sliders {
+    color: white;
+    font-size: 30px;
+    margin-top:100px;
+    cursor: pointer;
+    height: 40px;
+    width: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 22px;
+    border-radius: 5px;
+    padding-bottom: 30px;
+    border: 1px solid rgba(9, 207, 221, 0.2);
+    background: rgba(9, 207, 221, 0.2);
 }

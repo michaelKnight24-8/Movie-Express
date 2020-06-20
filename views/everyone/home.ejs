@@ -24,31 +24,41 @@
                 <div id="color-scheme">
                     <span class="pref-headers">Color Scheme</span>
                     <div id="colors-holder">
-                        <div id="white-col" class="color-options active" onclick="setActive(this.id)">WHITE</div>
-                        <div id="dark-col" class="color-options" onclick="setActive(this.id)">DARK</div>
+                        <div id="white-col" class="color-options" onclick="setActive(this.id)">WHITE</div>
+                        <div id="dark-col" class="color-options active" onclick="setActive(this.id)">DARK</div>
                         <div id="blue-col" class="color-options" onclick="setActive(this.id)">BLUE</div>
                     </div>
                     <div class="pref-headers" id="chg-avatar">Change Avatar</div>
                     <div id="avatars">
                         <div class="avatar-rows">
-                            <div></div><div></div><div></div><div></div>
-                            <div></div><div></div><div></div><div></div>
+                            <div id="a1" onclick="changeAvatar(this.id)"></div><div id="a2" onclick="changeAvatar(this.id)"></div>
+                            <div id="a3" onclick="changeAvatar(this.id)"></div><div id="a4" onclick="changeAvatar(this.id)"></div>
+                            <div id="a5" onclick="changeAvatar(this.id)"></div><div id="a6" onclick="changeAvatar(this.id)"></div>
+                            <div id="a7" onclick="changeAvatar(this.id)"></div><div id="a8" onclick="changeAvatar(this.id)"></div>
                         </div>
                         <div class="avatar-rows">
-                            <div></div><div></div><div></div><div></div>
-                            <div></div><div></div><div class="current-avatar"></div><div></div>
+                            <div id="a9" onclick="changeAvatar(this.id)"></div><div id="a10" onclick="changeAvatar(this.id)"></div>
+                            <div id="a11" onclick="changeAvatar(this.id)"></div><div id="a12" onclick="changeAvatar(this.id)"></div>
+                            <div id="a13" onclick="changeAvatar(this.id)"></div><div id="a14" onclick="changeAvatar(this.id)"></div>
+                            <div  id="a15" onclick="changeAvatar(this.id)"></div><div id="a16" onclick="changeAvatar(this.id)"></div>
                         </div>
                         <div class="avatar-rows">
-                            <div></div><div></div><div></div><div></div>
-                            <div></div><div></div><div></div><div></div>
+                            <div id="a17" onclick="changeAvatar(this.id)"></div><div id="a18" onclick="changeAvatar(this.id)"></div>
+                            <div id="a19" onclick="changeAvatar(this.id)"></div><div id="a20" onclick="changeAvatar(this.id)"></div>
+                            <div id="a21" onclick="changeAvatar(this.id)"></div><div id="a22" onclick="changeAvatar(this.id)"></div>
+                            <div id="a23" onclick="changeAvatar(this.id)"></div><div id="a24" onclick="changeAvatar(this.id)"></div>
                         </div>
                         <div class="avatar-rows">
-                            <div></div><div></div><div></div><div></div>
-                            <div></div><div></div><div></div><div></div>
+                            <div id="a25" onclick="changeAvatar(this.id)"></div><div id="a26" onclick="changeAvatar(this.id)"></div>
+                            <div id="a27" onclick="changeAvatar(this.id)"></div><div id="a28" onclick="changeAvatar(this.id)"></div>
+                            <div id="a29" onclick="changeAvatar(this.id)"></div><div id="a30" onclick="changeAvatar(this.id)"></div>
+                            <div id="a31" onclick="changeAvatar(this.id)"></div><div id="a32" onclick="changeAvatar(this.id)"></div>
                         </div>
                         <div class="avatar-rows">
-                            <div></div><div></div><div></div><div></div>
-                            <div></div><div></div><div></div><div></div>
+                            <div id="a33" onclick="changeAvatar(this.id)"></div><div id="a34" onclick="changeAvatar(this.id)"></div>
+                            <div id="a35" onclick="changeAvatar(this.id)"></div><div id="a36" onclick="changeAvatar(this.id)"></div>
+                            <div id="a37" onclick="changeAvatar(this.id)"></div><div id="a38" onclick="changeAvatar(this.id)"></div>
+                            <div id="a39" onclick="changeAvatar(this.id)"></div><div id="a40" onclick="changeAvatar(this.id)"></div>
                         </div>
                     </div>
                 </div>
@@ -58,10 +68,16 @@
                 <div>Hello man!!!!</div>
             </div>
             <div id="reviews">
-                Your reviews
+                <div>Reviews You Have Left</div>
+                
             </div>
             <div id="your-favorites">
-                Your favorite movies
+                <div id="fav-head">Your Favorited Movies</div>
+                <div id="favorites-holder">
+                    <div class="fav-sliders"><</div>
+                        <div id="favorites-shower"></div>
+                    <div class="fav-sliders">></div>
+                </div>
             </div>
             
             <div class="toggle-btn" onclick="toggleSidebar()">
@@ -69,11 +85,7 @@
                 <div id="bar2"></div>
                 <div id="bar3"></div>
             </div>
-            <label class="switch">
-                <input type="checkbox" checked onclick="toggleThemes()">
-                <span class="slider round"></span>
-            </label>
-            <label>Dark</label>
+        
             <!-- <a href="/auth/login">Log in</a> -->
             <ul>
                 <li><div id="img"></div></li>
@@ -97,7 +109,7 @@
         <div id="main-crap" onclick="bodyClick()">
             <div class="container">
                 <div class="">
-                    <h3 class="text-center">Search For Any Movie</h3>
+                    <h3 class="text-center" id="search-header">Search For Any Movie</h3>
                     <% for (tvShow of TvShows) { %>
                         <input type="text" class="top-tv-shows" hidden style="color: white" value="<%= tvShow %>">
                     <% } %>
@@ -107,14 +119,14 @@
                     <form id="searchForm">
                         <input type="text" autocomplete="off" class="form-control" oninput="getMovies(this.value)" id="searchText" placeholder="Search Movies...">
                     </form>
-                    <div id="top-shows-header">Top Rated TV Shows</div>
+                    <div id="top-shows-header" class="scrape-headers">Top Rated TV Shows</div>
                     <div id="top-shows-container">
-                        <div id="slideLeft" class="sliders" onclick="moveRight('top-shows')"><</div>
+                        <div id="slideLeft" class="sliders" onclick="moveRight('top-shows')"><</div>                      
                             <div id="top-shows"></div>
                         <div id="slideRight" class="sliders" onclick="moveLeft('top-shows')">></div>
                     </div>
 
-                    <div id="top-movies-header">Top Rated Movies</div>
+                    <div id="top-movies-header" class="scrape-headers">Top Rated Movies</div>
                     <div id="top-movies-container">
                         <div id="slideLeftMovie" class="sliders" onclick="moveRight('top-movies')"><</div>
                             <div id="top-movies"></div>
