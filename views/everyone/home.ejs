@@ -65,7 +65,13 @@
                 <button type="button" class="btn btn-primary">SAVE</button>
             </div>
             <div id="personal-info">
-                <div>Hello man!!!!</div>
+                <div id="personal-img"></div>
+                <div>
+                    <label>Display Name</label><br>
+                    <input type="text" value="Michael Knight" readonly>
+                    <label>Email</label><br>
+                    <input type="text" value="exampleemail@me.com" readonly>
+                </div>
             </div>
             <div id="reviews">
                 <div>Reviews You Have Left</div>
@@ -134,8 +140,6 @@
             <!-- <a href="/auth/login">Log in</a> -->
             <ul>
                 <li><div id="img"></div></li>
-                <li id="name">Michael Knight</li>
-                <li id="email">exampleemail@me.com</li>
                 <a href="#" class="list-items" id="reviews-container" onclick="showHidden('reviews', this.id)">
                     <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 35px; color: black;"></i>Reviews
                 </a>

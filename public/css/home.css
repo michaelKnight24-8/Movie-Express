@@ -106,12 +106,13 @@ body { background-color: rgb(61, 61, 60) }
 }
 
 #personal-info {
+    display: flex;
     position: fixed;
     background-color: gray;  
     left: 200px;
-    top: 100px;
-    height: 500px;
-    width: 600px;
+    top: 270px;
+    height: 200px;
+    width: 400px;
     visibility: hidden;
     border-bottom-right-radius: 5px;
     border-top-right-radius: 5px;
@@ -493,9 +494,7 @@ a { color: black; text-decoration: none; }
 
 .steel-blue-theme { background-color: steelblue!important; }
 
-.blue-theme {
-    background-color: navy
-}
+.blue-theme { background-color: navy; }
 
 .light-theme {
     background-color: white!important;
@@ -504,9 +503,7 @@ a { color: black; text-decoration: none; }
 
 .scrape-theme { color: turquoise!important; }
 
-.container-theme { 
-    border: 1px solid turquoise!important;
-}
+.container-theme { border: 1px solid turquoise!important; }
 
 #fav-head { font-size: large; margin-top: 20px; margin-left: 10px; color: black;}
 
@@ -543,7 +540,8 @@ a { color: black; text-decoration: none; }
 #reviews-holder:hover { overflow-y: scroll; }
 
 .individual-review {
-    border-left: 3px solid black;
+    border-left: 5px solid black;
+    border-radius: 5px;
     height: 100px; width: 100%;
     overflow: hidden;
     padding-left: 5px;
@@ -563,7 +561,6 @@ a { color: black; text-decoration: none; }
 
 #reviews-holder::-webkit-scrollbar {
     background-color: #333;
-    border-radius: 5px;
     height: 20%;
     max-height: 30%;
     transition: 0.9s;
@@ -571,7 +568,6 @@ a { color: black; text-decoration: none; }
 
 #reviews-holder::-webkit-scrollbar-track {
     background-color: #333;
-    border-radius: 5px;
     height: 20%;
     max-height: 30%;
     transition: 0.9s;
@@ -582,13 +578,11 @@ a { color: black; text-decoration: none; }
     min-height: 20px;
     max-height: 30px;
     height: 20px;
-    border-radius: 50px;
     transition: 0.9s;
 }
 
 .individual-review::-webkit-scrollbar {
     background-color: #333;
-    border-radius: 5px;
     height: 20%;
     max-height: 30%;
     width: 10px;
@@ -596,7 +590,6 @@ a { color: black; text-decoration: none; }
 
 .individual-review::-webkit-scrollbar-track {
     background-color: #333;
-    border-radius: 5px;
     height: 20%;
     max-height: 30%;
     width: 10px;
@@ -607,6 +600,22 @@ a { color: black; text-decoration: none; }
     min-height: 20px;
     max-height: 30px;
     height: 10%;
-    border-radius: 50px;
     width: 100px;
 }
+
+#personal-img {
+    background-size: 100% 100%;
+    width: 45%;
+    margin-left: 2.5%;
+    margin-top: 2.5%;
+    height: 90%;
+}
+
+#personal-img + div label {
+    font-size: 10px;    
+    margin-top: 25px;
+}
+
+#personal-img + div { width: 45%; margin-left: 5px; }
+
+input { background-color: transparent; border: none; outline: none; }

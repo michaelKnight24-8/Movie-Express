@@ -250,26 +250,30 @@ function blueTheme() {
 //ones as needed
 function showHidden(context, context2) {
 
-    //iterate over conatiners and ids and shut them if needed so there is no overlap
-    for (container of containerIds) {
-        if (context2 != container) {
-            if ($("#" + container).hasClass('current')) {
-                document.getElementById(container).classList.toggle("current");
-            }
-        }
-    }
+  //iterate over conatiners and ids and shut them if needed so there is no overlap
+  for (container of containerIds) {
+      if (context2 != container) {
+          if ($("#" + container).hasClass('current')) {
+              document.getElementById(container).classList.toggle("current");
+          }
+      }
+  }
 
-    //now for slideOut stuff
-    for (slide of slideOutIds) {
-        if (context != slide) {
-            if ($("#" + slide).hasClass("change")) {
-                document.getElementById(slide).classList.toggle("change");
-            }
-        }
-    }
+  //now for slideOut stuff
+  for (slide of slideOutIds) {
+      if (context != slide) {
+          if ($("#" + slide).hasClass("change")) {
+              document.getElementById(slide).classList.toggle("change");
+          }
+      }
+  }
 
-    document.getElementById(context).classList.toggle("change");
-    document.getElementById(context2).classList.toggle("current");
+  if (context == 'personal-info')
+    document.getElementById("personal-img").style["background-image"] = 'url(../images/' + currentActiveAvatar + '.png)';
+
+
+  document.getElementById(context).classList.toggle("change");
+  document.getElementById(context2).classList.toggle("current");
 }
 
 //the starting function for chanhing the theme the user sees on the website. 
