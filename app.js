@@ -47,10 +47,10 @@ app.use(express.static(path.join(__dirname, 'public')))
             $(".titleColumn").each(function(i, item) {
                 if (i < 10) {
                     movies.push($("td a", item).text());
-                }
+                } else { return false; }
             });
         })
-        console.log(movies);
+        
         var tvShows = [];
         url = "https://www.imdb.com/chart/toptv/?ref_=nv_tvv_250";
         request(url, function (error, response, html) {

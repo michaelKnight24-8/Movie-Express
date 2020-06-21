@@ -79,7 +79,7 @@
                     <div class="individual-review">
                         <div class="review-header">Star Wars</div>
                         <div>Jan 1st 2019</div>
-                        <div>8/10</div>
+                        <div class="show-rating"><span class="fa fa-star checked"></span>8/10</div>
                         <div class="review-text">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
                             Id deserunt aliquid obcaecati eveniet aliquam quibusdam, 
@@ -90,7 +90,7 @@
                     <div class="individual-review">
                         <div class="review-header">The Office</div>
                         <div>Dec 11th 2020</div>
-                        <div>10/10</div>
+                        <div class="show-rating"><span class="fa fa-star checked"></span>10/10</div>
                         <div class="review-text">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
                             Id deserunt aliquid obcaecati eveniet aliquam quibusdam, 
@@ -101,7 +101,7 @@
                     <div class="individual-review">
                         <div class="review-header">how I Met Your Mother</div>
                         <div>Jan 1st 2019</div>
-                        <div>10/10</div>
+                        <div class="show-rating"><span class="fa fa-star checked"></span>10/10</div>
                         <div class="review-text">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
                             Id deserunt aliquid obcaecati eveniet aliquam quibusdam, 
@@ -112,7 +112,7 @@
                     <div class="individual-review">
                         <div class="review-header">Conjuring</div>
                         <div>Mar 6th 2019</div>
-                        <div>8/10</div>
+                        <div class="show-rating"><span class="fa fa-star checked"></span>8/10</div>
                         <div class="review-text">
                             Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
                             Id deserunt aliquid obcaecati eveniet aliquam quibusdam, 
@@ -161,8 +161,9 @@
                     <h3 class="text-center" id="search-header">Search For Any Movie</h3>
                     <% for (tvShow of TvShows) { %>
                         <input type="text" class="top-tv-shows" hidden style="color: white" value="<%= tvShow %>">
-                    <% } %>
-                    <%   for (movie of Movies) { %>
+                    <% } 
+                       for (movie of Movies) { %>
+                        <% console.log("Movie:" + movie) %>
                         <input type="text" class="top-movies-all" hidden style="color: white" value="<%= movie %>">
                     <% } %>
                     <form id="searchForm">
