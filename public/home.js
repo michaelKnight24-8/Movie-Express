@@ -1,5 +1,5 @@
 //so I know which one is currently active, so it makes ading and removing
-var currentActiveAvatar = "";
+var currentActiveAvatar = "none";
 var currentColorTheme = "";
 //holds the container ids
 var containerIds = ["reviews-container", "favorite-movies-container",
@@ -105,10 +105,8 @@ function getMovies(searchText){
                       <div>${actors}</div>
                     </div>
                 </div>
-              </div>
-            `;
+              </div>`;
             $('#movies').html(output);
-            
           });
         });
         
@@ -118,18 +116,20 @@ function getMovies(searchText){
       });
     }
 }
-  
+
+
 //calls the corresponding route to load the page showing more details about a certain show
 function movieSelected(id){
   window.location.href = '../movie/details/' + id;
-  return false;
 }
 
 //Two api calls are made here. In the beginnig of the route I do the web scrape and 
 //get the top 10 rated movies and shows right now in the world, and stores them in hidden input fields.
 //this then takes those values, uses the API on each one, and displays everything all nicely!
-function loadTopInfo() {
-  document.getElementById("img").style["background-image"] = 'url(../images/a28.png)';
+function loadTopInfo(theme) {
+  if (document.getElementById("hasUser").value == 'yes')
+    currentActiveAvatar = document.getElementById('avatar-holder').value;
+
   var shows = document.getElementsByClassName("top-tv-shows");
   var movies = document.getElementsByClassName("top-movies-all");
   
@@ -150,6 +150,18 @@ function loadTopInfo() {
         index++;
         document.getElementById("top-shows").innerHTML += output;
   });
+  if (theme != 'none') {
+    switch(theme) {
+      case 'blue':
+        blueTheme();
+        break;
+      case 'white':
+        whiteTheme();  
+        break;
+      case 'dark':
+        darkTheme();  
+    }
+  }
 }
   index = 0;
   for (movie of movies) {
@@ -195,54 +207,61 @@ function moveRight(context) {
 //which elements are being changed, and all that jazz
 function toggleThemes(color) {
 
-  switch (currentColorTheme) {
+  switch (color) {
       case "blue":
         blueTheme();
         break;
       case "white":
         whiteTheme();
+        break;
+      case "dark":
+        darkTheme();
+        break;
     }
-
-  //the hard part! Find what the current color is, and toggle the color so it
-  //turns off. Then, toggle the correct color on all the different elements,
-  //to match the correct color
-  if  (color.split("-")[0] == "blue") 
-    blueTheme();
-
-  if (color.split("-")[0] == "white") 
-    whiteTheme();
-  if (color.split("-")[0] == "dark")
-    currentColorTheme = "dark";
   
 }
 
 
 
 function whiteTheme() {
-  for (slide of slideOutIds) 
-      document.getElementById(slide).classList.toggle("light-theme");
+  for (slide of slideOutIds) {
+      document.getElementById(slide).style.backgroundColor = "white";
+      document.getElementById(slide).style.color = "turquoise";
+  }
   
 
-    document.getElementById("sidebar").classList.toggle("light-theme");
-    document.getElementById("theBody").classList.toggle("light-theme");
-    document.getElementById("top-movies-header").classList.toggle("scrape-theme");
-    document.getElementById("top-shows-header").classList.toggle("scrape-theme");
+    document.getElementById("sidebar").style.backgroundColor = "white";
+    document.getElementById("sidebar").style.color = "turquoise";
 
-    document.getElementById("top-shows").classList.toggle("container-theme");
-    document.getElementById("top-movies").classList.toggle("container-theme");
+    document.getElementById("theBody").style.backgroundColor = "white";
+    document.getElementById("theBody").style.color = "turquoise";
+
+    document.getElementById("top-movies-header").style.color = "turquoise";
+    document.getElementById("top-shows-header").style.color = "turquoise";
+
+    document.getElementById("top-shows").style.border = "1px solid turquoise";
+    document.getElementById("top-movies").style.border = "1px solid turquoise";
 
     currentColorTheme = "white";
 }
 
+function darkTheme() {
+  for (slide of slideOutIds) 
+    document.getElementById(slide).style.backgroundColor = "grey";
 
+  document.getElementById('search-header').style.color = "turquoise";
+  document.getElementById("sidebar").style.backgroundColor = "grey";
+  document.getElementById("theBody").style.backgroundColor = "grey";
+  currentColorTheme = "dark"
+}
 
 function blueTheme() {
   for (slide of slideOutIds) 
-  document.getElementById(slide).classList.toggle("steel-blue-theme");
+    document.getElementById(slide).style.backgroundColor = "steelblue";
 
-  document.getElementById('search-header').classList.toggle("blue-headers");
-  document.getElementById("sidebar").classList.toggle("steel-blue-theme");
-  document.getElementById("theBody").classList.toggle("blue-theme");
+  document.getElementById('search-header').style.color = "white";
+  document.getElementById("sidebar").style.backgroundColor = "steelblue";
+  document.getElementById("theBody").style.backgroundColor = "navy";
   currentColorTheme = "blue"
 }
 
@@ -269,7 +288,8 @@ function showHidden(context, context2) {
   }
 
   if (context == 'personal-info')
-    document.getElementById("personal-img").style["background-image"] = 'url(../images/' + currentActiveAvatar + '.png)';
+    document.getElementById("personal-img").style["background-image"] = 'url(../images/' + 
+    document.getElementById("avatar-holder").value + '.png)';
 
 
   document.getElementById(context).classList.toggle("change");
@@ -288,13 +308,16 @@ function setActive(context) {
   }
   document.getElementById(context).classList.toggle('active');
   
-  toggleThemes(context.split("-")[0])
+  toggleThemes(context.split("-")[0]);
 }
 
+function saveUser() {
+  window.location.href = "../auth/theme/" + currentColorTheme + "/" + currentActiveAvatar;
+}
 
 //changes the avatar based upon what the user selects
 function changeAvatar(avatarId) {
-  if (currentActiveAvatar != "") 
+  if (currentActiveAvatar != "none") 
     document.getElementById(currentActiveAvatar).classList.toggle('current-avatar');
 
   document.getElementById(avatarId).classList.toggle('current-avatar');

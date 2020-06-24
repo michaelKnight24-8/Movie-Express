@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
-    user: {
+    userId: {
+        type: Schema.Types.ObjectId,
+        required: true
+    },
+    headline: {
         type: String,
         required: true
     },
@@ -16,7 +20,11 @@ const reviewSchema = new Schema({
         required: true
     },
     date: {
-        trype: String,
+        type: String,
+        required: true
+    },
+    spoilers: {
+        type: Boolean,
         required: true
     }
 });

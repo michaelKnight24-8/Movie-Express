@@ -2,6 +2,18 @@ var email = document.getElementById("email");
 var password = document.getElementById("password");
 var emailLabel = document.getElementById("label-email");
 var passwordLabel = document.getElementById("label-password");
+var isCorrect = false;
+var modalBgSign = document.getElementById('modal-bg');
+var modalCloseSign = document.getElementById('modal-close');
+var forgot = document.getElementById('forgot');
+
+forgot.addEventListener('click', function() {
+    modalBgSign.classList.toggle("showForgot");
+});
+
+modalCloseSign.addEventListener('click', function() {
+    modalBgSign.classList.toggle("showForgot");
+}); 
 
 email.addEventListener("focusout", onfocusout);
 password.addEventListener("focusout", onfocusoutPassword);
@@ -127,27 +139,76 @@ function getRandomString() {
     document.getElementById("t5").innerHTML = result[4];
     document.getElementById("t6").innerHTML = result[5];
 }
- 
 function validateRobot() {
     var correct = "";
+    var indicator = document.getElementById("reset-text");
     correct += document.getElementById("t1").innerHTML +
     document.getElementById("t2").innerHTML +
     document.getElementById("t3").innerHTML +
     document.getElementById("t4").innerHTML +
     document.getElementById("t5").innerHTML +
     document.getElementById("t6").innerHTML;
-    
-    deleteToast(correct == document.getElementById("robot-input").value);
+    if (correct != document.getElementById("robot-input").value) {
+        deleteToast("Error in captcha");
+    } else {
+        indicator.classList.remove("fa-refresh");
+        indicator.classList.add("fa-check");
+        indicator.style.color = "green";
+        isCorrect = true;
+    }
 }
 
-function deleteToast(correct) {
-    var toast = document.getElementById("snackbar");
+function validateForm() {
+    var fname = document.getElementById("fName").value;
+    var lname = document.getElementById("lName").value;
+    var email = document.getElementById("emailS").value;
+    var password = document.getElementById("passwordS").value;
+    var confirm = document.getElementById("confirm-password").value;
 
+    if (fname.length == 0 || lname.length == 0 ||
+        email.length == 0 || password.length == 0 ||
+        confirm.length == 0)
+        deleteToast("Please fill out all fields");
+    else if(password != confirm) 
+        deleteToast("Passwords must match");
+    else if (!isCorrect) 
+        validateRobot();
+    else {
+        var myForm = document.getElementById("sign-up-form");
+        myForm.action = "../auth/signup"
+        myForm.submit();
+    }
+
+}
+
+function deleteToast(text) {
+    if (text === 'E-Mail exists already') 
+        goAway();
+
+    var toast = document.getElementById("snackbar");
+    
     // Add the "show" class to DIV
     toast.className = "show";
-    toast.innerHTML = (correct ? "Correct!" : "Wring!");
-    toast.style["backgroundColor"] = (correct ? "green" : "red");
+    toast.innerHTML = text;
 
     // After 3 seconds, remove the show class from DIV
-    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+    setTimeout(function(){ 
+        toast.className = toast.className.replace("show", ""); 
+    }, 3000);
+}
+
+function validateForgot() {
+    if (document.getElementById("emailForgot").value.length == 0) deleteToast("Enter your email to proceed");
+}
+
+function validateLogin() {
+    var password = document.getElementById("password").value;
+    var email = document.getElementById("email").value;
+    var myForm = document.getElementById("login-form");
+
+    if (password.length == 0 || email.length == 0) deleteToast("Fill out all fields");
+    else {
+        myForm.action = "../auth/login";
+        myForm.submit();
+    }
 }

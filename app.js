@@ -9,16 +9,20 @@ const request = require("request");
 
 const app = express();
 const corsVar = require('cors');
-// const User = require('./models/user');
+const User = require('./models/user');
 const session = require('express-session');
 const authRoutes = require('./routes/authRoutes/auth');
 const movieRoutes = require('./routes/movie/movie');
 const MongoDBList = require('connect-mongodb-session')(session);
+const flash = require('connect-flash');
 
-// const stats = new MongoDBList({
-//     uri: MONGODB_URI,
-//     collection: 'sessions'
-// });
+const MONGODB_URI =
+    'mongodb+srv://mknight24:Lak3rs24@cluster0-20afh.mongodb.net/imdb?retryWrites=true&w=majority';
+
+const shows = new MongoDBList({
+    uri: MONGODB_URI,
+    collection: 'sessions'
+});
 
 const corsOptions = {
     origin: "https://assignment-2-cs341.herokuapp.com/",
@@ -36,6 +40,27 @@ app.use(express.static(path.join(__dirname, 'public')))
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
     .use(bodyParser.urlencoded({extended: false}))
+    .use(flash())
+    .use(
+        session({
+            secret: 'my secret',
+            resave: false,
+            saveUninitialized: false,
+            shows: shows
+        })) 
+    .use((req, res, next) => {
+        if (!req.session.user) {
+            return next();
+        }
+        User.findById(req.session.user._id)
+         .then(user => {
+             req.user = user;
+             next();
+         })
+         .catch(error => {
+             next(new Error(error));
+         });
+    })    
     .use('/auth', authRoutes)
     .use('/movie', movieRoutes)
     .get("/", (req, res, next) => {
@@ -63,21 +88,42 @@ app.use(express.static(path.join(__dirname, 'public')))
                     // This is the primary index, always handled last. 
                     res.render('everyone/home', {
                         TvShows: tvShows,
-                        Movies: movies
+                        Movies: movies,
+                        user: req.session.user,
+                        isLoggednIn: req.session.isLoggedIn
                     }); 
                     return false;
                 }
             });
         })
     });
+const MONGODB_URL = process.env.MONGODB_URL || 'mongodb+srv://mknight24:Lak3rs24@cluster0-20afh.mongodb.net/imdb?retryWrites=true&w=majority'
 mongoose
-    .connect( 
-    'mongodb+srv://mknight24:Lak3rs24@cluster0-20afh.mongodb.net/imdb?retryWrites=true&w=majority'
+  .connect(
+      MONGODB_URL 
     )
-    .then(result => {
-        app.listen(PORT);
-        console.log("connected!");
-    })
-    .catch(err => {
-        console.log(err);
-    }); 
+   .then(result => {
+    User.findOne().then(user => {
+      if (!user) {
+          const user = new User({
+              lastName: "Knight",
+              firstName: "Michael",
+              colorScheme: "dark",
+              email: "kni15005@byui.edu",
+              password: "sup",
+              favorites: {
+                  items: []
+              },
+              reviews: {
+                  items: []
+              },
+          });
+        user.save();
+      }
+  });
+  app.listen(PORT);
+  console.log('Connected!');
+})
+.catch(error => {
+   console.log(error);
+});

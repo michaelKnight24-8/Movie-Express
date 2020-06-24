@@ -1,0 +1,152 @@
+body { background-color: black; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; }
+
+#header-deets { display: flex; }
+
+img { width: 150px; height: 180px; }
+
+#movie-info { font-size: 35px; display: flex; }
+
+#movie-info div { margin-left: 10px; margin-right: 10px; }
+
+#first {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+.spoilers { color: turquoise; }
+
+#first + div { margin-top: 80px; font-size: 40px; margin-left: 10px; }
+
+#second { display: block; 
+    margin-top: 10px; 
+    padding-bottom: 1px; 
+    background-color: rgba(1, 1, 1, 0.2);
+    border: 1px solid rgba(1, 1, 1, 0.2);
+}
+
+#rating-header {
+    margin-top: 5px;
+    font-size: 30px;
+    color: rgba(1, 1, 1, 0.4);
+    display: inline-block;
+    margin-bottom: 20px;
+    padding-left: 10px;
+}
+
+#review-header {
+    font-size: 30px;
+    color: rgba(1, 1, 1, 0.4);
+    margin-top: 25px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 10px; 
+}
+
+#rating-container {
+    margin-left: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 520px; height: 50px;
+}
+
+.stars { color: white!important; }
+
+.star { color: rgb(226, 190, 27)!important; }
+
+#initial { margin-left: 5px; }
+
+#rating-container span {
+    font-size: 40px;
+    padding-top: 7px;
+    margin-left: 5px; 
+    color: rgba(1, 1, 1, 0.4)
+}
+
+#total-stars { font-size: 20px; position: relative; left: 20px; }
+
+textarea {
+    width: 95%;
+    margin-top: 25px;
+    font-size: 25px;
+    padding-left: 10px;
+    border-radius: 5px;
+    outline: none;
+    height: 150px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-left: 20px;
+}
+
+textarea + div { font-size: 25px; margin-left: 20px; }
+
+#spoilers { display: flex; }
+
+input { 
+    width: 95%;
+    margin-top: 15px;
+    height: 40px;
+    font-size: 25px;
+    padding-left: 10px;
+    border-radius: 5px;
+    outline: none;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-left: 20px;
+}
+
+#radio-group { display: flex; width: 200px; margin-left: 630px; }
+
+#radio-group label { padding-top: 10px; }
+
+input[type="radio"] { height: 20px; }
+
+button { 
+    width: 96%;
+    margin-left: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    height: 40px;
+    font-size: 25px;
+    margin-top: 10px;  
+}
+
+#snackbar {
+    visibility: hidden; 
+    padding: 10px;
+    min-width: 250px; 
+    margin-left: -125px; 
+    color: #fff; 
+    font-size: 20px;
+    text-align: center; 
+    border-radius: 2px; 
+    position: fixed; 
+    z-index: 1; 
+    left: 50%; 
+    bottom: 30px;
+    border-radius: 8px; 
+}
+
+#snackbar.show {
+    visibility: visible; 
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}

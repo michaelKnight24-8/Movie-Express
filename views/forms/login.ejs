@@ -7,27 +7,32 @@
     <title>Login</title>
     <link rel="stylesheet" href="/css/login.css">
 </head>
-<body>     
+<% if (error) { %>
+<body onload="deleteToast('<%=error%>')">
+<% } else { %>
+<body>
+<% } %>  
+    <div id="snackbar"></div>
     <div id="theForm">
         <div id="img"></div>
         <div id="form-data">
-            <form action="" method="POST">
+            <form id="login-form" method="POST">
                 <div id="signin">
                     <h1>Sign in</h1>
                 </div>
                 <div id="loginGroup">
                     <div id="email-holder"> 
                         <i class="fa fa-envelope" style="color: turquoise;"></i>
-                        <input id="email" type="email"> 
+                        <input id="email" type="email" name="email"> 
                         <div id="label-email">Email</div>
                     </div>
                     <div id="password-holder">
                         <i class="fa fa-lock" style="font-size: 23px; color: turquoise;"></i>
-                        <input id="password" type="password">
+                        <input id="password" type="password" name="password">
                         <div id="label-password">Password</div>
                     </div>
                 </div>
-                <input id="btn" type="submit" value="SIGN IN">
+                <input type="button" id="btn" onclick="validateLogin()" value="SIGN IN"> 
                 <div href="" id="forgot">Forgot your password?</div>
             </form>
         </div>
@@ -40,26 +45,25 @@
         <div id="sec-img" class="b">
             <h4>Your security is our number one concern</h4>
         </div>
-        <form id="sign-up-form"class="b">
+        <form id="sign-up-form"class="b" method="POST">
             <h2>Create your Movie Express account</h2>
             <div id="signupGroup">
                 <div id="names"class="b">
-                    <input type="text" id="fName" class="input-fields" onfocusout="">
+                    <input type="text" id="fName" name="fname"class="input-fields" onfocusout="">
                     <div id="label-first">First Name</div>
-                    <input type="text" id="lName" class="input-fields" onfocusout="">
+                    <input type="text" id="lName" name="lname"class="input-fields" onfocusout="">
                     <div id="label-last">Last Name</div>
                 </div>
-                <input id="emailS" type="email" onfocusout="" class="input-fields"> 
+                <input id="emailS" type="email" onfocusout="" name="emailS" class="input-fields"> 
                 <div id="label-emailS">Email</div>         
                 <div id="passwords">
-                    <input type="password" id="passwordS" class="input-fields" onfocusout="">
+                    <input type="password" id="passwordS" name="passS" class="input-fields" onfocusout="">
                     <div id="label-passwordS">Password</div>
-                    <input type="password" id="confirm-password" class="input-fields" onfocusout="">
+                    <input type="password" id="confirm-password" name="confirmS" class="input-fields" onfocusout="">
                     <div id="label-confirm">Confirm</div>
                 </div>
                 <div id="moving" style="display: flex;">
                 </div>
-                <div id="snackbar"></div>
                 <div id="sign-up-btns" class="b">
                     <div id="robot">
                         <h5>Secret text! Now I know you aren't a robot! muwahaha</h5>
@@ -71,40 +75,31 @@
                             </div>
                             <i id="reset-text" onclick="getRandomString()" class="fa fa-refresh"></i>
                         </div>
-                        <input type="text" id="robot-input" required placeholder="Type the text...">                        
+                        <input type="text" id="robot-input" required placeholder="Type the text...">
+                        <span onclick="validateRobot()">check</span>                       
                     </div>
-                    <div id="signupBtn" onclick="validateRobot()">Sign Up</div>
+                    <div id="signupBtn" onclick="validateForm()">Sign Up</div>
                 </div>
             </div>
-           
         </form>
     </div>
     <a href="" id="signin-link">Sign in instead</a>
     <div id="modal-bg">
         <div id="modal">
             <div id="forgotGroup">
-                <div id="logo">Movie Express</div>
-                <div>Account Recovery</div>
-                <h2>Enter the email associated with your account</h2>
-                <input id="emailForgot" type="email" onfocusout="" class="input-fields"> 
-                <div id="label-forgot">Email</div>  
-                <input type="submit" id="validateBtn" value="SEND" name="VALIDATE">
-                <span id="modal-close">X</span>
+                <form id="forgotForm">
+                    <div id="logo">Movie Express</div>
+                    <div>Account Recovery</div>
+                    <h2>Enter the email associated with your account</h2>
+                    <input id="emailForgot" type="email" name="emailF" onfocusout="" class="input-fields"> 
+                    <div id="label-forgot">Email</div>  
+                    <input type="button" id="validateBtn" value="SEND" name="VALIDATE" onclick="validateForgot()">
+                    <span id="modal-close">X</span>
+                </form>
             </div>
         </div>
     </div>
     <script>
-        var modalBgSign = document.getElementById('modal-bg');
-        var modalCloseSign = document.getElementById('modal-close');
-        var forgot = document.getElementById('forgot');
-
-        forgot.addEventListener('click', function() {
-            modalBgSign.classList.toggle("showForgot");
-        });
-
-        modalCloseSign.addEventListener('click', function() {
-            modalBgSign.classList.toggle("showForgot");
-        }); 
     </script>
     <script src="/login.js"></script>
 </body>

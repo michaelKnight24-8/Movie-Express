@@ -1,72 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script
     src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
     crossorigin="anonymous"></script>
-    <script src="home.js"></script>
-    <script>
-        function getMovie(){
-    let movieId = document.getElementById("movieId").value;
-    console.log(movieId);
-    axios.get('https://www.omdbapi.com/?i='+movieId+'&apikey=b85b1f97&')
-      .then((response) => {
-        console.log(response);
-        let movie = response.data;
-  
-        let output =`
-          <div class="main-container">
-            <div class="movieImg">
-              <img src="${movie.Poster}" id="img">
-            </div>
-            <div class="movie-details">
-              <h2>${movie.Title}</h2>
-              <div id="movie-details-list">
-                <div class="movie-info" id="top"><strong class="labels">Genre:</strong> ${movie.Genre}</div>
-                <div class="movie-info"><strong class="labels">Released:</strong> ${movie.Released}</div>
-                <div class="movie-info"><strong class="labels">Rated:</strong> ${movie.Rated}</div>
-                <div class="movie-info"><strong class="labels">IMDB Rating:</strong> ${movie.imdbRating}</div>
-                <div class="movie-info"><strong class="labels">Director:</strong> ${movie.Director}</div>
-                <div class="movie-info"><strong class="labels">Writer:</strong> ${movie.Writer}</div>
-                <div class="movie-info" id="bottom"><strong class="labels">Actors:</strong> ${movie.Actors}</div>
-               </div> 
-               <i id="heart" class="fa fa-heart-o" onclick="makeFavorite()">
-                 <div id="hover-content">Add to Favorites
-                 </div>
-               </i>
-            </div>
-          </div>
-          <div class="row">
-            <div class="well">
-              <div id="plot">
-                <h3>Plot</h3>
-                ${movie.Plot}
-              </div>
-              <a href="/" id="back">Go Back To Search</a>      
-            </div>
-        </div>
-        `;
-  
-        $('#movie').html(output);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-    </script>
+    <link rel="stylesheet" href="/css/details.css">
 </head>
-<body onload="getMovie()">
-    <div class="container">
+<% if (user) { %>
+<body id="body" onload="getMovie('<%=user.colorScheme%>')">
+<% } else { %>
+<body id="body" onload="getMovie('none')">
+<% } %>
+  <script type="text/javascript" src="details.js"></script>
+    <div id="container">
         <div id="movie" class="well"></div>
+        <div id="leave-review"><span onclick="getReviewForm()">+</span>Leave A Review</div>
+        <div id="reviews"></div>
     </div>
     <div id="snackbar"></div>
-    <input type="text" hidden id="movieId" value="<%= movieId %>">
+    <input type="text" hidden id="movieId" value="<%=movieId%>">
 </body>
 <script>
-  function deleteToast() {
+  function getReviewForm() {
+    var img = document.getElementById("img").src;
+  
+    //get all the information that I will pass ass parameters to the route handler
+    window.location.href = '../review/' + 
+    document.getElementById("title").innerHTML + "/" + 
+    document.getElementById("date").innerHTML.split(" ")[2] + "/" +  encodeURIComponent(img);
+}
+
+function deleteToast() {
     var isFavorite = document.getElementById("heart").classList.contains("fa-heart-o");
 
     var toast = document.getElementById("snackbar");
@@ -79,7 +48,8 @@
     // After 3 seconds, remove the show class from DIV
     setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
 }
-  function makeFavorite() {
+
+function makeFavorite() {
     var heart = document.getElementById("heart");
     if (heart.classList.contains("fa-heart-o")) {
       heart.classList.remove("fa-heart-o");
@@ -91,7 +61,83 @@
       document.getElementById("hover-content").innerHTML = "Add to favorites"
     }
     deleteToast();
-  }
+}
+
+function getMovie(color) {
+    let movieId = document.getElementById("movieId").value;
+    console.log(movieId);
+    axios.get('https://www.omdbapi.com/?i='+movieId+'&apikey=b85b1f97&')
+        .then((response) => {
+        console.log(response);
+        let movie = response.data;
+
+        let output =`
+            <div class="main-container">
+            <div class="movieImg">
+                <img src="${movie.Poster}" id="img">
+            </div>
+            <div class="movie-details">
+                <h2 id="title">${movie.Title}</h2>
+                <div id="movie-details-list">
+                <div class="movie-info" id="top"><strong class="labels">Genre:</strong> ${movie.Genre}</div>
+                <div class="movie-info"><strong class="labels">Released:</strong><span id="date">${movie.Released}</span></div>
+                <div class="movie-info"><strong class="labels">Rated:</strong> ${movie.Rated}</div>
+                <div class="movie-info"><strong class="labels">IMDB Rating:</strong> ${movie.imdbRating}</div>
+                <div class="movie-info"><strong class="labels">Director:</strong> ${movie.Director}</div>
+                <div class="movie-info"><strong class="labels">Writer:</strong> ${movie.Writer}</div>
+                <div class="movie-info" id="bottom"><strong class="labels">Actors:</strong> ${movie.Actors}</div>
+                </div> 
+                <i id="heart" class="fa fa-heart-o" onclick="makeFavorite()">
+                    <div id="hover-content">Add to Favorites
+                    </div>
+                </i>
+            </div>
+            </div>
+            <div class="row">
+            <div class="well">
+                <div id="plot">
+                <h3>Plot</h3>
+                ${movie.Plot}
+                </div>
+                <a href="/" id="back">Go Back To Search</a>      
+            </div>
+        </div>`;
+
+        $('#movie').html(output);
+        })
+        .catch((err) => {
+        console.log(err);
+        });
+    if (color != 'none') {    
+        switch(color) {
+            case 'dark':
+                darkTheme();
+                break;
+            case 'blue':
+                blueTheme();
+                break;
+            case 'white':
+                whiteTheme();
+                break;        
+        }
+    }
+}
+function blueTheme() {
+    document.getElementById("container").style.backgroundColor = "steelblue";
+    document.getElementById("body").style.backgroundColor = "navy";
+    document.getElementById("back").style.backgroundColor = "lightskyblue";
+}
+function whiteTheme() {
+    document.getElementById("container").style.backgroundColor = "rgba(1,1,1,0.2)";
+    document.getElementById("body").style.backgroundColor = "white";
+    document.getElementById("back").style.backgroundColor = "turquoise";
+    document.getElementById("leave-review").style.color = "black";
+}
+function darkTheme() {
+    document.getElementById("container").style.backgroundColor = "rgb(43,41,41)";
+    document.getElementById("body").style.backgroundColor = "black";
+    document.getElementById("back").style.backgroundColor = "gray";
+    document.getElementById("leave-review").style.color = "white";
+}
 </script>
-<link rel="stylesheet" href="/css/details.css">
 </html>

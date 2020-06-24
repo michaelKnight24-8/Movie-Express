@@ -16,17 +16,32 @@
     <script src="home.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
-<body id="theBody" onload="loadTopInfo()">
+<% if (user) { %>
+<input type="text" hidden value="yes" id="hasUser">
+<body id="theBody" onload="loadTopInfo('<%=user.colorScheme%>')">
+<% } else { %>
+<input type="text" hidden value="no" id="hasUser">
+<body id="theBody" onload="loadTopInfo('none')">
+<% }  %>
     <div id="main-container">
         <input type="text" hidden value="USERID">
         <div id="sidebar">
+            <div class="toggle-btn" onclick="toggleSidebar()">
+                <div id="bar1"></div>
+                <div id="bar2"></div>
+                <div id="bar3"></div>
+            </div>
+            <% if (user) { %>
             <div id="preferences">
                 <div id="color-scheme">
                     <span class="pref-headers">Color Scheme</span>
                     <div id="colors-holder">
-                        <div id="white-col" class="color-options" onclick="setActive(this.id)">WHITE</div>
-                        <div id="dark-col" class="color-options active" onclick="setActive(this.id)">DARK</div>
-                        <div id="blue-col" class="color-options" onclick="setActive(this.id)">BLUE</div>
+                        <div id="white-col" class="<%= user.colorScheme === 'white' ? 'color-options active' : 'color-options' %>" 
+                        onclick="setActive(this.id)">WHITE</div>
+                        <div id="dark-col" class="<%= user.colorScheme === 'dark' ? 'color-options active' : 'color-options' %>"
+                         onclick="setActive(this.id)">DARK</div>
+                        <div id="blue-col" class="<%= user.colorScheme === 'blue' ? 'color-options active' : 'color-options' %>"
+                        onclick="setActive(this.id)">BLUE</div>
                     </div>
                     <div class="pref-headers" id="chg-avatar">Change Avatar</div>
                     <div id="avatars">
@@ -62,15 +77,16 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary">SAVE</button>
+                <button type="button" class="btn btn-primary" onclick="saveUser()">SAVE</button>
             </div>
             <div id="personal-info">
-                <div id="personal-img"></div>
+                <input type="text" hidden id="avatar-holder" value="<%=user.avatar%>">
+                <div id="personal-img" style="background-image: url('../images/<%=user.avatar%>.png');"></div>
                 <div>
                     <label>Display Name</label><br>
-                    <input type="text" value="Michael Knight" readonly>
+                    <input type="text" value="<%=user.firstName%> <%=user.lastName%>" readonly>
                     <label>Email</label><br>
-                    <input type="text" value="exampleemail@me.com" readonly>
+                    <input type="text" id="email-holder" value="<%=user.email%>" readonly>
                 </div>
             </div>
             <div id="reviews">
@@ -99,7 +115,7 @@
                         </div>
                     </div>
                     <div class="individual-review">
-                        <div class="review-header">how I Met Your Mother</div>
+                        <div class="review-header">How I Met Your Mother</div>
                         <div>Jan 1st 2019</div>
                         <div class="show-rating"><span class="fa fa-star checked"></span>10/10</div>
                         <div class="review-text">
@@ -131,15 +147,9 @@
                 </div>
             </div>
             
-            <div class="toggle-btn" onclick="toggleSidebar()">
-                <div id="bar1"></div>
-                <div id="bar2"></div>
-                <div id="bar3"></div>
-            </div>
-        
-            <!-- <a href="/auth/login">Log in</a> -->
-            <ul>
-                <li><div id="img"></div></li>
+            
+                <ul>
+                <li><div id="img" style="background-image: url('../images/<%=user.avatar%>.png');"></div></li>
                 <a href="#" class="list-items" id="reviews-container" onclick="showHidden('reviews', this.id)">
                     <i class="glyphicon glyphicon-thumbs-up" style="margin-right: 35px; color: black;"></i>Reviews
                 </a>
@@ -152,8 +162,11 @@
                 <a href="#" class="list-items" id="prefs-container" onclick="showHidden('preferences', this.id)">
                     <i class="fa fa-gear" style="margin-right: 35px;"></i>Preferences
                 </a>
-                <li id="logout"><a href="#">Sign out</a></li>
+                <li id="logout"><a href="../auth/logout">Sign out</a></li>
             </ul>
+            <% } else { %>
+                <a href="/auth/login">Log in</a>
+            <% } %>
         </div>
         <div id="main-crap" onclick="bodyClick()">
             <div class="container">
@@ -163,7 +176,6 @@
                         <input type="text" class="top-tv-shows" hidden style="color: white" value="<%= tvShow %>">
                     <% } 
                        for (movie of Movies) { %>
-                        <% console.log("Movie:" + movie) %>
                         <input type="text" class="top-movies-all" hidden style="color: white" value="<%= movie %>">
                     <% } %>
                     <form id="searchForm">

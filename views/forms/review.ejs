@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="/css/review.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body onload="setTheme('<%=user.colorScheme%>')" id="body">
+    <form id="myForm">
+        <div id="header">
+            <div id="header-deets">
+                <img src="<%=poster%>">
+                <div id="movie-details">
+                    <div id="movie-info">
+                        <div><%=name%></div><div>(<%=date%>)</div>
+                    </div>
+                    <hr id="first">
+                    <div>Add A Review</div>
+                </div>
+            </div>
+            <hr id="second">
+            <div id="rating-header">YOUR RATING</div>
+        </div>
+        <div id="rating-container">
+            <span class="fa fa-star stars" id="s1" onmouseover="activate(this.id)">
+            </span><span class="fa fa-star stars" id="s2" onmouseover="activate(this.id)"></span>
+            <span class="fa fa-star stars" id="s3" onmouseover="activate(this.id)">
+            </span><span class="fa fa-star stars" id="s4" onmouseover="activate(this.id)"></span>
+            <span class="fa fa-star stars" id="s5" onmouseover="activate(this.id)">
+            </span><span class="fa fa-star stars" id="s6" onmouseover="activate(this.id)"></span>
+            <span class="fa fa-star stars" id="s7" onmouseover="activate(this.id)">
+            </span><span class="fa fa-star stars" id="s8" onmouseover="activate(this.id)"></span>
+            <span class="fa fa-star stars" id="s9" onmouseover="activate(this.id)">
+            </span><span class="fa fa-star stars" id="s10" onmouseover="activate(this.id)"></span>
+            <span id="total-stars" name="stars">0</span>
+        </div>
+        <div id="review-header">YOUR REVIEW</div>
+        <input id="headline" type="text" name="headline" placeholder="Write a headline for your review here"
+         maxlength="50">
+        <textarea placeholder="Write your review here" id="actual-review" name="review"></textarea>
+        <div id="spoilers">
+            <div class="spoilers">Does this review contain spoilers?</div>
+            <div class="spoilers" id="radio-group">
+                <input type="radio" id="yes" name="gender" value="yes" onclick="chosen()"><label>Yes</label>
+                <input type="radio" id="no" name="gender" value="no" onclick="chosen()"><label>No</label>
+            </div>
+        </div>
+        <input id="submit-review" type="button" onclick="getResults()" value="Submit">
+    </form>
+    <div id="snackbar"></div>
+</body>
+<script>
+var chosen = false;
+function chosen() { chosen = true; }
+function setTheme(color) {
+    switch(color) {
+        case 'blue':
+            blueTheme();
+            break;
+        case 'dark':
+            darkTheme();
+            break;
+        case 'white':
+            whiteTheme();
+            break;        
+    }
+}
+
+function deleteToast() {
+
+    var toast = document.getElementById("snackbar");
+
+    // Add the "show" class to DIV
+    toast.className = "show";
+    toast.innerHTML = "Please fill out all fields";
+    toast.style["backgroundColor"] = "red";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+}
+
+function activate(starId) {
+    var tempId = starId;
+    if (tempId.length === 3) tempId = 10;
+    else tempId = parseInt(starId[1]);
+
+    var rating = 0;
+    
+    //first add the class 'star' to the id if it's before the one hovered over
+    for (var i = 1; i <= tempId; i++) 
+        document.getElementById("s" + i).classList.add('star');
+        
+    //then if a star is hovered over that is before the farthest right star,
+    //remove the star class from them    
+    for (var i = tempId + 1; i <= 10; i++)
+        if ($('#s' + i).hasClass('star')) 
+            document.getElementById("s" + i).classList.toggle('star');
+
+    //now iterate over one more time to see the overall rating that the user has given
+    for (var i = 1; i <= 10; i++)
+        if ($('#s' + i).hasClass('star')) 
+            rating++;
+
+    document.getElementById("total-stars").innerHTML = rating;
+}
+function getResults() {
+    var stars = document.getElementById("total-stars").innerHTML;
+    var review = document.getElementById("actual-review").value;
+    var headline = document.getElementById("headline").value;
+    if (stars == "0" || review.length == 0 || headline.length == 0) {
+        deleteToast();
+    } else {
+        var myForm = document.getElementById("myForm");
+        myForm.method = "POST"
+        myForm.action = ""
+    }
+}
+
+function blueTheme() {
+    var stars = document.getElementsByClassName('stars');
+    for (star of stars)
+        star.style["color"] = "white!important";
+
+    document.getElementById("body").style.backgroundColor = "navy";    
+    document.getElementById("header").style.backgroundColor = "steelblue";    
+    document.getElementById("total-stars").style.color = "white";    
+    document.getElementById("review-header").style.backgroundColor = "lightskyblue";    
+    document.getElementById("headline").style.backgroundColor = "steelblue";    
+    document.getElementById("headline").style.color = "white";    
+    document.getElementById("actual-review").style.color = "white";    
+    document.getElementById("actual-review").style.backgroundColor = "steelblue";    
+    document.getElementById("rating-container").style.border = "1px solid white";    
+}
+
+function whiteTheme() {
+    // var stars = document.getElementsByClassName('stars');
+    // for (star of stars)
+    //     star.style["color"] = "black!important";
+
+    document.getElementById("body").style.backgroundColor = "white";    
+    document.getElementById("header").style.backgroundColor = "rgba(0,0,0,0.2)";    
+    document.getElementById("total-stars").style.color = "white";    
+    document.getElementById("review-header").style.backgroundColor = "rgba(0,0,0,0.05)";    
+    document.getElementById("headline").style.backgroundColor = "white";    
+    document.getElementById("headline").style.color = "black";    
+    document.getElementById("actual-review").style.color = "black";    
+    document.getElementById("actual-review").style.backgroundColor = "white";    
+    document.getElementById("rating-container").style.border = "1px solid black";  
+    document.getElementById("rating-container").style.backgroundColor = "black";  
+}
+
+function darkTheme() {
+    var stars = document.getElementsByClassName('stars');
+    for (star of stars)
+        star.style["color"] = "white!important";
+
+    document.getElementById("body").style.backgroundColor = "black";    
+    document.getElementById("header").style.backgroundColor = "rgba(255,255,255,0.4)";    
+    document.getElementById("total-stars").style.color = "white";    
+    document.getElementById("review-header").style.backgroundColor = "rgba(255,255,255,0.4)";    
+    document.getElementById("headline").style.backgroundColor = "rgba(1,1,1,0.4)";    
+    document.getElementById("headline").style.color = "white";    
+    document.getElementById("actual-review").style.color = "white";    
+    document.getElementById("actual-review").style.backgroundColor = "rgba(1,1,1,0.4)";    
+    document.getElementById("rating-container").style.border = "1px solid white";  
+}
+</script>
+</html>

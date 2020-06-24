@@ -55,7 +55,6 @@ body { background-color: rgb(61, 61, 60) }
 
 #preferences {
     position: fixed;
-    background-color: gray;  
     width: 600px;
     height: 500px;
     visibility: hidden;
@@ -81,7 +80,6 @@ body { background-color: rgb(61, 61, 60) }
     top: 70px;
     width: 400px;
     height: 340px;
-    background-color: gray;
     box-shadow: 2px 2px 2px turquoise;
 }
 
@@ -98,7 +96,6 @@ body { background-color: rgb(61, 61, 60) }
     border-right: 1px solid turquoise;
     border-bottom: 1px solid turquoise;
     visibility: hidden;
-    background-color: gray;
     left: 200px;
     width: 400px;
     top: 106px;
@@ -107,8 +104,7 @@ body { background-color: rgb(61, 61, 60) }
 
 #personal-info {
     display: flex;
-    position: fixed;
-    background-color: gray;  
+    position: fixed; 
     left: 200px;
     top: 270px;
     height: 200px;
@@ -492,8 +488,6 @@ a { color: black; text-decoration: none; }
     margin-left: 84%;
 }
 
-.steel-blue-theme { background-color: steelblue!important; }
-
 .blue-theme { background-color: navy; }
 
 .light-theme {
@@ -621,3 +615,10 @@ a { color: black; text-decoration: none; }
 #personal-img + div { width: 45%; margin-left: 5px; }
 
 input { background-color: transparent; border: none; outline: none; }
+
+@media (max-width: 800px) {
+    #top-shows, #top-movies {
+        height: 100px; width: 250px;
+    }
+    #container { margin-left: 20%; }   
+}
