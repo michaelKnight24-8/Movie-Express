@@ -121,14 +121,36 @@ to {bottom: 0; opacity: 0;}
 
 #leave-review span { margin-left: 20px; font-size: 35px; margin-right: 5px; padding-top: 15px; cursor: pointer; }
 
-#reviews { height: 100%; }
-
-.stars { color: rgba(197, 197, 17, 0.904); }
-
-.individual-review { 
-    height: 100%;
-    width: 100%; 
-    border: 1px solid black;
+#reviews { 
+    height: 200px;
+    overflow: hidden;
 }
 
+#reviews:hover { overflow-y: scroll; }
+
+.stars { color: rgba(197, 197, 17, 0.904); margin-right: 5px; }
+
+.review-spoilers { color: red; margin-bottom: 80px; }
+
+.individual-review { 
+    height: 200px;
+    width: 98%;
+    margin-left: 2%; 
+    overflow: hidden;
+    border-bottom: 2px solid rgba(31, 29, 29, 0.897); 
+}
+
+.review-rating { margin-top: 10px; }
+
+.individual-review:hover { overflow-y: scroll; }
+
 h3 { font-size: 30px; }
+
+.review-date {
+    margin-bottom: 10px;
+}
+
+.review-headline {
+    font-size: 30px;
+    margin-bottom: 20px;
+}

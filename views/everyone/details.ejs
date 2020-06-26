@@ -20,19 +20,23 @@
     <div id="container">
         <div id="movie" class="well"></div>
         <div id="leave-review"><span onclick="getReviewForm()">+</span>Leave A Review</div>
-        <% if (reviews) { %>
+        <% if (reviews.length > 0) { %>
             <div id="reviews">
                 <h3>User Reviews</h3>
                 <% for (review of reviews) { %>
                     <div class="individual-review">
                         <div class="review-rating"><span class="fa fa-star stars"></span><%=review.rating%>/10</div>
+                        <% if (review.spoilers) {%>
+                            <div class="review-spoilers">*Contains Spoilers*</div>
+                        <% } %>
                         <div class="review-headline"><%=review.headline%></div>
                         <div class="review-date"><%=review.date%></div>
                         <div class="review-review"><%=review.review%></div>
                     </div>
+            
+        <%     } %>
             </div>
-        <%     }
-          }%>
+        <%  }%>
     </div>
     <div id="snackbar"></div>
     <input type="text" hidden id="movieId" value="<%=movieId%>">
@@ -120,20 +124,18 @@ function getMovie(color) {
         })
         .catch((err) => {
         console.log(err);
-        });
-    if (color != 'none') {    
+        });   
         switch(color) {
-            case 'dark':
-                darkTheme();
-                break;
             case 'blue':
                 blueTheme();
                 break;
             case 'white':
                 whiteTheme();
-                break;        
+                break; 
+            default:
+                darkTheme();
+                break;       
         }
-    }
 }
 
 function blueTheme() {
@@ -153,5 +155,6 @@ function darkTheme() {
     document.getElementById("back").style.backgroundColor = "gray";
     document.getElementById("leave-review").style.color = "white";
 }
+
 </script>
 </html>
