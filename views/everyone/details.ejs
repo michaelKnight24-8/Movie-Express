@@ -21,8 +21,8 @@
         <div id="movie" class="well"></div>
         <div id="leave-review"><span onclick="getReviewForm()">+</span>Leave A Review</div>
         <% if (reviews.length > 0) { %>
+            <h3>User Reviews</h3>
             <div id="reviews">
-                <h3>User Reviews</h3>
                 <% for (review of reviews) { %>
                     <div class="individual-review">
                         <div class="review-rating"><span class="fa fa-star stars"></span><%=review.rating%>/10</div>
