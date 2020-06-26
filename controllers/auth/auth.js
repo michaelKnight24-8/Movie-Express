@@ -3,7 +3,6 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 const User = require("../../models/user");
-const Show = require("../../models/show");
 const Reviews = require("../../models/reviews");
 const { validationResult } = require('express-validator/check');
 
@@ -19,8 +18,40 @@ exports.getLogin = (req,res,next) => {
   });
 }
 
-exports.postSignUp = (req,res,next) => {
-    
+exports.addReview = (req,res,next) => {
+  var isSpoiler = req.params.spoiler == 'yes';
+  var name = req.body.movieName;
+  var headline = req.body.headline;
+  var theReview = req.body.review;
+  var numStars = req.body.stars;
+  var user = req.session.user;
+  var newShow = null;
+  var d = new Date();
+  var date = d.getMonth() + "/" + d.getDate() + "/" + d.getFullYear();
+  var review = new Reviews({
+    movieId: req.body.movieId,
+    movieName: name,
+    userId: user._id,
+    headline: headline,
+    rating: numStars,
+    review: theReview,
+    date: date,
+    spoilers: isSpoiler
+   });
+  review.save();
+  User.findOne({ email: user.email })
+    .then(userFound => {
+      userFound.addToReviews(review); 
+      req.session.user = userFound;
+      req.session.isLoggedIn = true;
+      return req.session.save(err => {
+        console.log(err);
+        res.redirect('../../');
+    });
+  });
+}
+
+exports.postSignUp = (req,res,next) => {    
     const email = req.body.emailS;
     const first = req.body.fname;
     const last = req.body.lname;
@@ -79,7 +110,7 @@ exports.postLogin = (req,res,next) => {
             return req.session.save(err => {
               console.log(err);
               res.redirect('../');
-            });
+              })
           }
           req.flash('error', 'Invalid credentials');
           return res.redirect('../');

@@ -64,6 +64,17 @@ app.use(express.static(path.join(__dirname, 'public')))
     .use('/auth', authRoutes)
     .use('/movie', movieRoutes)
     .get("/", (req, res, next) => {
+        var review = null;
+        if (req.session.isLoggedIn) {
+            req.user
+            .populate('reviews.items.reviewId')
+            .execPopulate()
+            .then(user => {
+            review = user.reviews.items;
+            });
+            console.log("User: " + req.session.user.firstName);
+            console.log("Reviews: " + review);
+        }
         var movies = [];
         url = "https://www.imdb.com/chart/top/?ref_=nv_mv_250";
         request(url, function (error, response, html) {
@@ -85,12 +96,14 @@ app.use(express.static(path.join(__dirname, 'public')))
                 if (i < 10) {
                     tvShows.push($("td a", item).text());
                 } else {
+                    
                     // This is the primary index, always handled last. 
                     res.render('everyone/home', {
                         TvShows: tvShows,
                         Movies: movies,
                         user: req.session.user,
-                        isLoggednIn: req.session.isLoggedIn
+                        isLoggednIn: req.session.isLoggedIn,
+                        review: review
                     }); 
                     return false;
                 }

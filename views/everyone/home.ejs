@@ -92,50 +92,19 @@
             <div id="reviews">
                 <div>Reviews You Have Left</div>
                 <div id="reviews-holder">
-                    <div class="individual-review">
-                        <div class="review-header">Star Wars</div>
-                        <div>Jan 1st 2019</div>
-                        <div class="show-rating"><span class="fa fa-star checked"></span>8/10</div>
-                        <div class="review-text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            Id deserunt aliquid obcaecati eveniet aliquam quibusdam, 
-                            voluptates nobis harum dignissimos maiores. Inventore maiores quo, 
-                            ab quisquam eveniet omnis culpa nulla voluptas!
-                        </div>
-                    </div>
-                    <div class="individual-review">
-                        <div class="review-header">The Office</div>
-                        <div>Dec 11th 2020</div>
-                        <div class="show-rating"><span class="fa fa-star checked"></span>10/10</div>
-                        <div class="review-text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            Id deserunt aliquid obcaecati eveniet aliquam quibusdam, 
-                            voluptates nobis harum dignissimos maiores. Inventore maiores quo, 
-                            ab quisquam eveniet omnis culpa nulla voluptas!
-                        </div>
-                    </div>
-                    <div class="individual-review">
-                        <div class="review-header">How I Met Your Mother</div>
-                        <div>Jan 1st 2019</div>
-                        <div class="show-rating"><span class="fa fa-star checked"></span>10/10</div>
-                        <div class="review-text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            Id deserunt aliquid obcaecati eveniet aliquam quibusdam, 
-                            voluptates nobis harum dignissimos maiores. Inventore maiores quo, 
-                            ab quisquam eveniet omnis culpa nulla voluptas!
-                        </div>
-                    </div>
-                    <div class="individual-review">
-                        <div class="review-header">Conjuring</div>
-                        <div>Mar 6th 2019</div>
-                        <div class="show-rating"><span class="fa fa-star checked"></span>8/10</div>
-                        <div class="review-text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            Id deserunt aliquid obcaecati eveniet aliquam quibusdam, 
-                            voluptates nobis harum dignissimos maiores. Inventore maiores quo, 
-                            ab quisquam eveniet omnis culpa nulla voluptas!
-                        </div>
-                    </div>
+                    <% if (review.length > 0) { 
+                        for (reviews of review) { %>
+                            <div class="individual-review">
+                                <div class="review-header"><%=reviews.reviewId.movieName%></div>
+                                <div><%=reviews.reviewId.date%></div>
+                                <div class="show-rating"><span class="fa fa-star checked"></span><%=reviews.reviewId.rating%>/10</div>
+                                <div class="headline"><%=reviews.reviewId.headline%></div>
+                                <div class="review-text">
+                                    <%=reviews.reviewId.review%>
+                                </div>
+                            </div>
+                    <%  }
+                    } %>        
                 </div>
             </div>
             <div id="your-favorites">
@@ -165,7 +134,7 @@
                 <li id="logout"><a href="../auth/logout">Sign out</a></li>
             </ul>
             <% } else { %>
-                <a href="/auth/login">Log in</a>
+                <a id="login" href="/auth/login">Log in</a>
             <% } %>
         </div>
         <div id="main-crap" onclick="bodyClick()">

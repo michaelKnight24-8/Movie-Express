@@ -13,19 +13,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body onload="setTheme('<%=user.colorScheme%>')" id="body">
-    <form id="myForm">
+    <form id="myForm" method="POST">
         <div id="header">
             <div id="header-deets">
                 <img src="<%=poster%>">
                 <div id="movie-details">
                     <div id="movie-info">
-                        <div><%=name%></div><div>(<%=date%>)</div>
+                        <div name="movieName"><%=name%></div><div>(<%=date%>)</div>
+                        <input type="text" hidden name="movieName" value="<%=name%>">
                     </div>
                     <hr id="first">
                     <div>Add A Review</div>
                 </div>
             </div>
             <hr id="second">
+            <input name="movieId" value="<%=movieId%>" hidden type="text">
             <div id="rating-header">YOUR RATING</div>
         </div>
         <div id="rating-container">
@@ -39,7 +41,8 @@
             </span><span class="fa fa-star stars" id="s8" onmouseover="activate(this.id)"></span>
             <span class="fa fa-star stars" id="s9" onmouseover="activate(this.id)">
             </span><span class="fa fa-star stars" id="s10" onmouseover="activate(this.id)"></span>
-            <span id="total-stars" name="stars">0</span>
+            <span id="total-stars">0</span>
+            <input type="text" id="stars-holder" hidden name="stars">
         </div>
         <div id="review-header">YOUR REVIEW</div>
         <input id="headline" type="text" name="headline" placeholder="Write a headline for your review here"
@@ -48,8 +51,8 @@
         <div id="spoilers">
             <div class="spoilers">Does this review contain spoilers?</div>
             <div class="spoilers" id="radio-group">
-                <input type="radio" id="yes" name="gender" value="yes" onclick="chosen()"><label>Yes</label>
-                <input type="radio" id="no" name="gender" value="no" onclick="chosen()"><label>No</label>
+                <input type="radio" id="yes" name="spoiler" value="yes" onclick="chosen()"><label>Yes</label>
+                <input type="radio" id="no" name="spoiler" value="no" onclick="chosen()"><label>No</label>
             </div>
         </div>
         <input id="submit-review" type="button" onclick="getResults()" value="Submit">
@@ -109,17 +112,29 @@ function activate(starId) {
             rating++;
 
     document.getElementById("total-stars").innerHTML = rating;
+    document.getElementById("stars-holder").value = rating;
 }
 function getResults() {
     var stars = document.getElementById("total-stars").innerHTML;
     var review = document.getElementById("actual-review").value;
     var headline = document.getElementById("headline").value;
-    if (stars == "0" || review.length == 0 || headline.length == 0) {
+    const rbs = document.querySelectorAll('input[name="spoiler"]');
+    let hasSelected = false;
+    var answer = "";
+    for (const rb of rbs) { 
+        if (rb.checked) {
+            hasSelected = true;
+            answer = rb.value;
+        }
+    }
+            
+    if (stars == "0" || review.length == 0 || headline.length == 0 || !hasSelected) {
         deleteToast();
     } else {
         var myForm = document.getElementById("myForm");
         myForm.method = "POST"
-        myForm.action = ""
+        myForm.action = "../../../../../auth/addReview/" + answer;
+        myForm.submit();
     }
 }
 

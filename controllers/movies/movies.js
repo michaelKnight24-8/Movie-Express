@@ -1,7 +1,14 @@
+const Reviews = require("../../models/reviews");
+
 exports.getDetails = (req,res,next) => {
-    res.render('everyone/details', {
-        movieId: req.params.id,
-        user: req.session.user
+    
+    Reviews.find({ movieId: req.params.id })
+    .then(reviews => {
+        res.render('everyone/details', {
+            movieId: req.params.id,
+            user: req.session.user,
+            reviews: reviews
+        });
     });
 }
 
@@ -11,7 +18,8 @@ exports.getReview = (req,res,next) => {
         name: req.params.name,
         date: req.params.date,
         user: req.session.user,
-        poster: decodeURIComponent(req.params.poster)
+        poster: decodeURIComponent(req.params.poster),
+        movieId: req.params.id
     });
 }
 

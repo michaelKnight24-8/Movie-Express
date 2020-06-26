@@ -7,4 +7,5 @@ router.post("/signup", authRoutes.postSignUp);
 router.post('/login', authRoutes.postLogin);
 router.get('/theme/:color/:avatar', authRoutes.changeTheme);
 router.get('/logout', authRoutes.logout);
+router.post('/addReview/:spoiler', authRoutes.addReview);
 module.exports = router;

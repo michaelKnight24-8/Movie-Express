@@ -120,3 +120,15 @@ to {bottom: 0; opacity: 0;}
 #leave-review { font-size: 30px; margin-top: 10px; }
 
 #leave-review span { margin-left: 20px; font-size: 35px; margin-right: 5px; padding-top: 15px; cursor: pointer; }
+
+#reviews { height: 100%; }
+
+.stars { color: rgba(197, 197, 17, 0.904); }
+
+.individual-review { 
+    height: 100%;
+    width: 100%; 
+    border: 1px solid black;
+}
+
+h3 { font-size: 30px; }

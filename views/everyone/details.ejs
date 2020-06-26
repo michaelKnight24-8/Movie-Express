@@ -20,7 +20,19 @@
     <div id="container">
         <div id="movie" class="well"></div>
         <div id="leave-review"><span onclick="getReviewForm()">+</span>Leave A Review</div>
-        <div id="reviews"></div>
+        <% if (reviews) { %>
+            <div id="reviews">
+                <h3>User Reviews</h3>
+                <% for (review of reviews) { %>
+                    <div class="individual-review">
+                        <div class="review-rating"><span class="fa fa-star stars"></span><%=review.rating%>/10</div>
+                        <div class="review-headline"><%=review.headline%></div>
+                        <div class="review-date"><%=review.date%></div>
+                        <div class="review-review"><%=review.review%></div>
+                    </div>
+            </div>
+        <%     }
+          }%>
     </div>
     <div id="snackbar"></div>
     <input type="text" hidden id="movieId" value="<%=movieId%>">
@@ -32,7 +44,8 @@
     //get all the information that I will pass ass parameters to the route handler
     window.location.href = '../review/' + 
     document.getElementById("title").innerHTML + "/" + 
-    document.getElementById("date").innerHTML.split(" ")[2] + "/" +  encodeURIComponent(img);
+    document.getElementById("date").innerHTML.split(" ")[2] + "/" +  encodeURIComponent(img) +
+    "/" + document.getElementById("movieId").value;
 }
 
 function deleteToast() {
@@ -122,6 +135,7 @@ function getMovie(color) {
         }
     }
 }
+
 function blueTheme() {
     document.getElementById("container").style.backgroundColor = "steelblue";
     document.getElementById("body").style.backgroundColor = "navy";

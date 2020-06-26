@@ -7,6 +7,10 @@ body { background-color: rgb(61, 61, 60) }
 
 #search-header { color: turquoise; }
 
+.headline {
+    font-size: 10px;
+}
+
 .show-container { 
     height: 90px; 
     color: white;
@@ -613,6 +617,8 @@ a { color: black; text-decoration: none; }
 }
 
 #personal-img + div { width: 45%; margin-left: 5px; }
+
+#login { color: turquoise; margin-top: 200px; display: block; margin-left: 30%; font-size: 25px; }
 
 input { background-color: transparent; border: none; outline: none; }
 

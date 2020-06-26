@@ -68,6 +68,7 @@ userSchema.methods.addToFavorites = function(show) {
 };
 
 userSchema.methods.addToReviews = function(review) {
+    
     const reviewIndex = this.reviews.items.findIndex(cp => {
       return cp.reviewId.toString() === review._id.toString();
     });

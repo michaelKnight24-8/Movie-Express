@@ -3,6 +3,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
+    movieId: {
+        type: String,
+        required: true
+    },
+    movieName: {
+        type: String,
+        required: true
+    },
     userId: {
         type: Schema.Types.ObjectId,
         required: true
@@ -12,7 +20,7 @@ const reviewSchema = new Schema({
         required: true
     },
     rating: {
-        type: Number,
+        type: String,
         required: true
     },
     review: {

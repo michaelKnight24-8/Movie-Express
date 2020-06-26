@@ -7,16 +7,9 @@ const showSchema = new Schema({
       type: String,
       required: true,
   },
-  reviews: {
-      items: [
-          {
-            reviewId: {
-                type: Schema.Types.ObjectId,
-                ref: 'Review',
-                required: true
-              }
-          }
-      ]
+  moviePoster: {
+    type: URL,
+    required: true,
   }
 });
 
