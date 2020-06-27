@@ -6,6 +6,7 @@ var isCorrect = false;
 var modalBgSign = document.getElementById('modal-bg');
 var modalCloseSign = document.getElementById('modal-close');
 var forgot = document.getElementById('forgot');
+var correctExceptForCap = false;
 
 forgot.addEventListener('click', function() {
     modalBgSign.classList.toggle("showForgot");
@@ -155,6 +156,7 @@ function validateRobot() {
         indicator.classList.add("fa-check");
         indicator.style.color = "green";
         isCorrect = true;
+        correctExceptForCap = true;
     }
 }
 
@@ -164,16 +166,17 @@ function validateForm() {
     var email = document.getElementById("emailS").value;
     var password = document.getElementById("passwordS").value;
     var confirm = document.getElementById("confirm-password").value;
-
+  
     if (fname.length == 0 || lname.length == 0 ||
         email.length == 0 || password.length == 0 ||
         confirm.length == 0)
         deleteToast("Please fill out all fields");
     else if(password != confirm) 
         deleteToast("Passwords must match");
-    else if (!isCorrect) 
+    else if (!isCorrect)  
         validateRobot();
-    else {
+
+    if (correctExceptForCap) {
         var myForm = document.getElementById("sign-up-form");
         myForm.action = "../auth/signup"
         myForm.submit();
