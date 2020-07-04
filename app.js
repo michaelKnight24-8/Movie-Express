@@ -65,15 +65,28 @@ app.use(express.static(path.join(__dirname, 'public')))
     .use('/movie', movieRoutes)
     .get("/", (req, res, next) => {
         var review = null;
+        var favorite = null;
+        var recents = null;
         if (req.session.isLoggedIn) {
+            req.user
+            .populate('recent.items')
+            .execPopulate()
+            .then(user => {
+                recents = user.recent.items;
+            });
             req.user
             .populate('reviews.items.reviewId')
             .execPopulate()
             .then(user => {
             review = user.reviews.items;
             });
-            console.log("User: " + req.session.user.firstName);
-            console.log("Reviews: " + review);
+
+            req.user
+            .populate('favorites.items')
+            .execPopulate()
+            .then(user => {
+            favorite = user.favorites.items;
+            });
         }
         var movies = [];
         url = "https://www.imdb.com/chart/top/?ref_=nv_mv_250";
@@ -103,13 +116,16 @@ app.use(express.static(path.join(__dirname, 'public')))
                         Movies: movies,
                         user: req.session.user,
                         isLoggednIn: req.session.isLoggedIn,
-                        review: review
+                        review: review,
+                        favorite: favorite,
+                        recent: recents
                     }); 
                     return false;
                 }
             });
         })
     });
+
 const MONGODB_URL = process.env.MONGODB_URL || 'mongodb+srv://mknight24:Lak3rs24@cluster0-20afh.mongodb.net/imdb?retryWrites=true&w=majority'
 mongoose
   .connect(

@@ -97,7 +97,7 @@ function getMovies(searchText){
 
             output += `
               <div class="search-data">
-                <div class="show-container" onclick="movieSelected('${movieData.imdbID}')">
+                <div class="show-container" id="${movieData.Poster}" onclick="movieSelected('${movieData.imdbID}', this.id)">
                   <img src="${movieData.Poster}" class="show-image">
                     <div class="actual-data>
                       <h5 class="show-title">${movieData.Title}</h5>
@@ -119,8 +119,8 @@ function getMovies(searchText){
 
 
 //calls the corresponding route to load the page showing more details about a certain show
-function movieSelected(id){
-  window.location.href = '../movie/details/' + id;
+function movieSelected(id, movieURL) {
+  window.location.href = '../movie/details/' + id + "/" + encodeURIComponent(movieURL);
 }
 
 //Two api calls are made here. In the beginnig of the route I do the web scrape and 
@@ -134,15 +134,19 @@ function loadTopInfo(theme) {
   var movies = document.getElementsByClassName("top-movies-all");
   
   var index = 0;
+
+  var showURL = "";
   for (show of shows) {
     axios.get('https://www.omdbapi.com/?i=tt3896198&apikey=b85b1f97&s='+show.value)
     .then((response) => {
       let output = '';
+      var hi = "hh";
       let movieInd = response.data.Search[0];
+      showURL = movieInd.Poster;
         output += `
           <div class="top-show-container">
             <div class="top-show-holder">
-            <img src="${movieInd.Poster}" class="images" onclick="goToDetails(${index})">
+            <img src="${movieInd.Poster}" class="images" onclick="goToDetails(${index},this.src)">
               <input type="text" hidden id="${index}"value="${movieInd.imdbID}">
             </div>
           </div>
@@ -172,8 +176,8 @@ function loadTopInfo(theme) {
         output += `
           <div class="top-movie-container">
             <div class="top-movie-holder">
-            <img src="${movieInd.Poster}" class="images" onclick="goToDetails(${index})">
-              <input type="text" hidden id="${index}"value="${movieInd.imdbID}">
+            <img src="${movieInd.Poster}" class="images" onclick="goToDetails(${index}, this.src)">
+              <input type="text" hidden id="${index}" value="${movieInd.imdbID}">
             </div>
           </div>
         `;
@@ -185,8 +189,9 @@ function loadTopInfo(theme) {
 }
 
 //small route handling
-function goToDetails(movieId) {
-  movieSelected(document.getElementById(movieId).value);
+function goToDetails(index, showURL) {
+  console.log("In goTo: " + showURL);
+  movieSelected(document.getElementById(index).value, showURL);
 }
 
 //handles moving a div scroll left

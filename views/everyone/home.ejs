@@ -110,9 +110,15 @@
             <div id="your-favorites">
                 <div id="fav-head">Your Favorited Movies</div>
                 <div id="favorites-holder">
-                    <div class="fav-sliders"><</div>
-                        <div id="favorites-shower"></div>
-                    <div class="fav-sliders">></div>
+                    <div class="fav-sliders" onclick="moveRight('favorites-shower')"><</div>
+                        <div id="favorites-shower"> 
+                           <% if (favorite) {
+                                for (favs of favorite) { %>
+                                    <div class="individual-fav"><img src="<%=favs.showURL%>"></div> 
+                           <%   } 
+                              }   %>
+                        </div>
+                    <div class="fav-sliders" onclick="moveLeft('favorites-shower')">></div>
                 </div>
             </div>
             
@@ -163,7 +169,16 @@
                             <div id="top-movies"></div>
                         <div id="slideRightMovie" class="sliders" onclick="moveLeft('top-movies')">></div>
                     </div>
-
+                    <% if (user) { 
+                            if (recent) { %>
+                                <div id="recents-header">Recently Viewed </div>
+                                <div id="recents">
+                            <%  for (recents of recent) { %>
+                                    <div class="recent-movie"><img src='<%=recents.showURL%>'></div>
+                    <%          } %>
+                                </div>
+                    <%      } 
+                        } %>                    
                 </div>
             </div>
             <div id="container">

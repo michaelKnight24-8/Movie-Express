@@ -33,9 +33,8 @@ const userSchema = new Schema({
   favorites: {
     items: [
       {
-        showId: {
-            type: Schema.Types.ObjectId,
-            ref: 'Show',
+        showURL: {
+            type: String,
             required: true
           }
       }
@@ -51,16 +50,47 @@ const userSchema = new Schema({
               }
           }
       ]
+  },
+  recent: {
+      items: [
+         {
+            showURL: {
+              type: String,
+              required: true
+            }
+         }
+      ]
   }
 });
 
-userSchema.methods.addToFavorites = function(show) {
-    const showIndex = this.favorites.items.findIndex(cp => {
-      return cp.showId.toString() === show._id.toString();
-    });
+userSchema.methods.removeFromFavorites = function(showURL) {
+  const favoritesItems = [...this.favorites.items];
+  favoritesItems.pop({ showURL: showURL});
+  
+  this.favorites = { items: favoritesItems };
+  return this.save();
+}
+
+userSchema.methods.addRecentlyViewed = function(showURL) {
+  var hasIt = false;
+    var recents = [...this.recent.items];
+    if (recents.length == 6) 
+      recents.shift();
+    for (val of recents) 
+      if (val.showURL == showURL) hasIt = true;
+    
+    
+    if (showURL != 'details.js' && !hasIt)
+     recents.push({ showURL: showURL});
+    this.recent = { items: recents };
+    
+    return this.save();
+}
+
+userSchema.methods.addToFavorites = function(showURL) {
     const updatedFavoritesItems = [...this.favorites.items];
   
-    updatedFavoritesItems.push({ showId: show._id });
+    updatedFavoritesItems.push({ showURL: showURL });
 
     const updatedFavs = { items: updatedFavoritesItems };
     this.favorites = updatedFavs;

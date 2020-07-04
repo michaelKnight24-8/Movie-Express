@@ -12,28 +12,40 @@
     <link rel="stylesheet" href="/css/details.css">
 </head>
 <% if (user) { %>
-<body id="body" onload="getMovie('<%=user.colorScheme%>')">
+<body id="body" onload="getMovie('<%=user.colorScheme%>', true)">
 <% } else { %>
-<body id="body" onload="getMovie('none')">
+<body id="body" onload="getMovie('none', false)">
 <% } %>
   <script type="text/javascript" src="details.js"></script>
     <div id="container">
+        <i id="heart" class="fa fa-heart-o fa-3x" onclick="makeFavorite()">
+        <span id="hover-content">
+        </span>
+        </i>
         <div id="movie" class="well"></div>
+        
         <div id="leave-review"><span onclick="getReviewForm()">+</span>Leave A Review</div>
-        <% if (reviews.length > 0) { %>
-            <h3>User Reviews</h3>
-            <div id="reviews">
-                <% for (review of reviews) { %>
-                    <div class="individual-review">
-                        <div class="review-rating"><span class="fa fa-star stars"></span><%=review.rating%>/10</div>
-                        <% if (review.spoilers) {%>
-                            <div class="review-spoilers">*Contains Spoilers*</div>
-                        <% } %>
-                        <div class="review-headline"><%=review.headline%></div>
-                        <div class="review-date"><%=review.date%></div>
-                        <div class="review-review"><%=review.review%></div>
-                    </div>
-            
+        <% if (user) { %>
+            <input type="text" id="favsLength" hidden value="<%=favorites.length%>">
+        <%  if (favorites) { 
+                for (favorite of favorites) { %>
+                    <input type="text" hidden class="srcHolder" value="<%=favorite.showURL%>">
+        <%      }
+            }
+        }          
+        if (reviews.length > 0) { %>
+        <h3>User Reviews</h3>
+        <div id="reviews">
+            <% for (review of reviews) { %>
+                <div class="individual-review">
+                    <div class="review-rating"><span class="fa fa-star stars"></span><%=review.rating%>/10</div>
+                    <% if (review.spoilers) {%>
+                        <div class="review-spoilers">*Contains Spoilers*</div>
+                    <% } %>
+                    <div class="review-headline"><%=review.headline%></div>
+                    <div class="review-date"><%=review.date%></div>
+                    <div class="review-review"><%=review.review%></div>
+                </div>
         <%     } %>
             </div>
         <%  }%>
@@ -42,11 +54,12 @@
     <input type="text" hidden id="movieId" value="<%=movieId%>">
 </body>
 <script>
+  
   function getReviewForm() {
     var img = document.getElementById("img").src;
   
     //get all the information that I will pass ass parameters to the route handler
-    window.location.href = '../review/' + 
+    window.location.href = '../../review/' + 
     document.getElementById("title").innerHTML + "/" + 
     document.getElementById("date").innerHTML.split(" ")[2] + "/" +  encodeURIComponent(img) +
     "/" + document.getElementById("movieId").value;
@@ -77,20 +90,27 @@ function makeFavorite() {
       heart.classList.add("fa-heart-o");
       document.getElementById("hover-content").innerHTML = "Add to favorites"
     }
+    var add = (heart.classList.contains("fa-heart") ? 'yes' : 'no');
+    window.location.href = "../../../auth/addFavorites/" + encodeURIComponent(document.getElementById("img").src) +
+    "/" + add;
     deleteToast();
 }
 
-function getMovie(color) {
+function getMovie(color, isUser) {
+    
     let movieId = document.getElementById("movieId").value;
     console.log(movieId);
     axios.get('https://www.omdbapi.com/?i='+movieId+'&apikey=b85b1f97&')
         .then((response) => {
         console.log(response);
         let movie = response.data;
-
+        if (isUser)
+            loadHeart(movie.Poster);
+        
         let output =`
             <div class="main-container">
             <div class="movieImg">
+                <input type="text" hidden id="imgSrc" value="${movie.Poster}">
                 <img src="${movie.Poster}" id="img">
             </div>
             <div class="movie-details">
@@ -104,10 +124,6 @@ function getMovie(color) {
                 <div class="movie-info"><strong class="labels">Writer:</strong> ${movie.Writer}</div>
                 <div class="movie-info" id="bottom"><strong class="labels">Actors:</strong> ${movie.Actors}</div>
                 </div> 
-                <i id="heart" class="fa fa-heart-o" onclick="makeFavorite()">
-                    <div id="hover-content">Add to Favorites
-                    </div>
-                </i>
             </div>
             </div>
             <div class="row">
@@ -125,6 +141,7 @@ function getMovie(color) {
         .catch((err) => {
         console.log(err);
         });   
+        
         switch(color) {
             case 'blue':
                 blueTheme();
@@ -136,6 +153,29 @@ function getMovie(color) {
                 darkTheme();
                 break;       
         }
+}
+
+function loadHeart(movieSRC) {
+    document.getElementById("hover-content").innerHTML = "Add to favorites"
+    if (document.getElementById("favsLength").value > 0) {
+        var thisMovieIsFound = false;
+        var heart = document.getElementById("heart");
+        var favs = document.getElementsByClassName("srcHolder");
+        for (fav of favs) {
+            if (fav.value == movieSRC) {
+                thisMovieIsFound = true;
+                heart.classList.remove("fa-heart-o");
+                heart.classList.add("fa-heart");
+                document.getElementById("hover-content").innerHTML = "Remove from favorites"
+            }
+        }
+        if (!thisMovieIsFound) {
+            if (heart.classList.contains("fa-heart")) {
+                heart.classList.remove("fa-heart");
+                heart.classList.add("fa-heart-o");
+            }
+        }
+    }
 }
 
 function blueTheme() {

@@ -72,6 +72,7 @@ exports.postSignUp = (req,res,next) => {
               avatar: "none",
               favorites: { items: [] },
               reviews: { items: [] },
+              recent: { items: [] },
               lastName: last,
               firstName: first
             });
@@ -155,3 +156,20 @@ exports.logout = (req,res,next) => {
   });
 }
 
+exports.addFavorites = (req,res,next) => {
+  console.log("gothere!");
+  var img = decodeURIComponent(req.params.img);
+  var add = req.params.add == 'yes';
+  User.findOne({ email: req.session.user.email })
+  .then(user => {
+    if (add) user.addToFavorites(img);
+    else user.removeFromFavorites(img);
+    req.session.isLoggedIn = true;
+    req.session.user = user;
+    return req.session.save(err => {
+      console.log(err);
+      res.redirect('../../../');
+    })
+  })
+  
+}
