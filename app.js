@@ -124,6 +124,9 @@ app.use(express.static(path.join(__dirname, 'public')))
                 }
             });
         })
+    })
+    .use((req, res, next) => {
+        res.status(404).render('everyone/404', { pageTitle: 'Page Not Found' });
     });
 
 const MONGODB_URL = process.env.MONGODB_URL || 'mongodb+srv://mknight24:Lak3rs24@cluster0-20afh.mongodb.net/imdb?retryWrites=true&w=majority'

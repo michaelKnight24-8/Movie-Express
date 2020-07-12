@@ -1,0 +1,29 @@
+body { background-color: whitesmoke; }
+
+#main-container { 
+    margin-top: 10%;
+    display: grid;
+    height: 300px;
+    width: 700px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "pic details";
+    margin-left: 23%;
+}
+
+#picture {
+    grid-area: pic;
+    background: url('http://drive.google.com/uc?export=view&id=1c0f8SCGiv4NIW8Ksn-_4VpBPaetSuXco');
+    background-size: 100% 100%;
+}
+
+#details { grid-area: details; }
+
+#details span { 
+    margin-left: 13%; 
+    font-size: 30px; 
+    margin-top: 15%; 
+    display: block; 
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; 
+}
+
+#details div { font-size: 25px; margin-left: 28%; margin-top: 15%; }
