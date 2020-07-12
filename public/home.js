@@ -74,12 +74,12 @@ $(document).ready(() => {
 //the name of the movie, the poster, and waht year it was made in. I also have it show only two
 //actors that are in the movie. When they click in the mimage they can see more. I parse it at the 
 //comma seperating the two names. If there is only one actor listed, then it only shows that one person
-function getMovies(searchText){
+function getMovies(searchText) {
   if (searchText.length == 0) {
     document.getElementById("container").style["visibility"] = "hidden";
   } else {
     document.getElementById("container").style["visibility"] = "visible";
-    axios.get('https://www.omdbapi.com/?i=tt3896198&apikey=b85b1f97&s='+searchText)
+    axios.get('https://www.omdbapi.com/?i=tt3896198&apikey=b85b1f97&s=' + searchText)
       .then((response) => {
         let movies = response.data.Search;
         let output = '';

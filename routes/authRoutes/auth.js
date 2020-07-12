@@ -10,4 +10,7 @@ router.get('/theme/:color/:avatar', authRoutes.changeTheme);
 router.get('/logout', authRoutes.logout);
 router.post('/addReview/:spoiler', authRoutes.addReview);
 router.get('/addFavorites/:img/:add', isUser, authRoutes.addFavorites);
+router.get("/reset/:token", authRoutes.login);
+router.post('/reset', authRoutes.reset);
+router.post('/newPassword', authRoutes.newPassword);
 module.exports = router;

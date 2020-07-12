@@ -6,6 +6,13 @@ const User = require("../../models/user");
 const Reviews = require("../../models/reviews");
 const { validationResult } = require('express-validator/check');
 
+const transporter = nodemailer.createTransport(sendgridTransport({
+  auth: {
+    api_key: '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'
+  }
+}));
+
+
 exports.getLogin = (req,res,next) => {
   let message = req.flash('error');
   if (message.length > 0) {
@@ -50,6 +57,17 @@ exports.addReview = (req,res,next) => {
     });
   });
 }
+
+exports.login = (req, res, next) => {
+  const token = req.params.token;
+  User.findOne({ resetToken: token, resetTokenExpiration: {$gt: Date.now() } })
+   .then(user => {
+    res.render('forms/reset', {
+      userId: user._id.toString(),
+      passwordToken: token
+    });
+   })
+};
 
 exports.postSignUp = (req,res,next) => {    
     const email = req.body.emailS;
@@ -156,6 +174,42 @@ exports.logout = (req,res,next) => {
   });
 }
 
+exports.reset = (req,res,next) => {
+  console.log("got here!!!!");
+  crypto.randomBytes(32, (err, buffer) => {
+    if (err) {
+      console.log(err);
+    }
+    const token = buffer.toString('hex');
+    User.findOne({ email: req.body.emailF })
+     .then(user => {
+       if (!user) {
+         return res.redirect('../../');
+       }
+       user.resetToken = token;
+       user.resetTokenExpiration = Date.now() + 3600000;
+       return user.save();
+     })
+     .then(result => {
+       transporter.sendMail({
+         to: req.body.emailF,
+         from: 'mknighter62@gmail.com',
+         subject: 'Password reset',
+         html: `
+         <p>You have requested a password reset</p>
+         <p><a href="http://localhost:5000/auth/reset/${token}">Click here</a></p>
+         `
+       });
+     })
+     .catch(err => {
+      const error = new Error(err);
+      error.httpStatusCode = 500;
+      return next(error);
+    });
+  });
+  res.redirect('../../');
+}
+
 exports.addFavorites = (req,res,next) => {
   console.log("gothere!");
   var img = decodeURIComponent(req.params.img);
@@ -171,5 +225,31 @@ exports.addFavorites = (req,res,next) => {
       res.redirect('../../../');
     })
   })
-  
+}
+
+exports.newPassword = (req,res,next) => {
+  const newPassword = req.body.password;
+  const userId = req.body.userId;
+  const passwordToken = req.body.passwordToken;
+
+  var resetUser;
+  User.findOne({
+    resetToken: passwordToken,
+    resetTokenExpiration: { $gt: Date.now() },
+    _id: userId
+  })
+    .then(user => {
+      resetUser = user;
+      return bcrypt.hash(newPassword, 12)
+    })
+    .then(hashedPassword => {
+      resetUser.password = hashedPassword;
+      resetUser.resetToken = undefined;
+      resetUser.resetTokenExpiration = undefined;
+      return resetUser.save();
+    })
+    .then(result => {
+      req.flash("error", "Password reset!");
+      res.redirect('../../');
+    })
 }

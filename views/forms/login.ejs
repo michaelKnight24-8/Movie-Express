@@ -86,13 +86,13 @@
     <div id="modal-bg">
         <div id="modal">
             <div id="forgotGroup">
-                <form id="forgotForm">
+                <form id="forgotForm" action="../../auth/reset" method="POST">
                     <div id="logo">Movie Express</div>
                     <div>Account Recovery</div>
                     <h2>Enter the email associated with your account</h2>
                     <input id="emailForgot" type="email" name="emailF" onfocusout="" class="input-fields"> 
                     <div id="label-forgot">Email</div>  
-                    <input type="button" id="validateBtn" value="SEND" name="VALIDATE" onclick="validateForgot()">
+                    <input type="submit" id="validateBtn" value="SEND" name="VALIDATE" onclick="validateForgot()">
                     <span id="modal-close">X</span>
                 </form>
             </div>

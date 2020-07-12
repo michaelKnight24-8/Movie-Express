@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/reset.css">
+</head>
+<body>
+    <h1>Enter a new password</h1>
+    <form class="login-form" action="../newPassword" method="POST">
+        <div class="form-control">
+            <label for="password">Password</label>
+            <input type="password" required name="password" id="password">
+            <input type="text" hidden  value="<%=userId%>" name="userId">
+            <input type="text" hidden  value="<%=passwordToken%>" name="passwordToken">
+            
+        </div>
+        <button class="btn" type="submit">Reset</button>
+    </form>
+</body>
+</html>
